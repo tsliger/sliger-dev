@@ -25,13 +25,16 @@ export default function Posts() {
     axios
       .get("http://localhost:1337/api/posts?populate=*")
       .then((res) => {
-        console.log(res.data.data)
         setPosts(res.data.data as []);
-        setLoading(false);
+        setInterval(() => {
+          setLoading(false);
+        }, 150)
       })
       .catch((err) => {
         setError(err);
-        setLoading(false);
+        setInterval(() => {
+          setLoading(false);
+        }, 150)
       });
   }, []);
 
@@ -46,12 +49,12 @@ export default function Posts() {
 
   return (
     <div>
-      <h1 className="mx-auto w-96 grid place-items-center pb-12 text-3xl font-bold tracking-widest text-white">Blog Posts</h1>
+      <h1 className="mx-auto w-96 grid place-items-center pb-12 text-3xl font-bold tracking-widest text-white">Blog</h1>
       <div className="w-full flex justify-center pb-16">
         <input className="bg-transparent decorations-none !outline-none placeholder:text-white/20 border-2 px-4 rounded-lg shadow-lg focus:border-[#FFE6C7] focus:shadow-none border-white/20 w-[330px] text-white font-mono" placeholder="Search Posts..." />
-        <button className="bg-[#FFE6C7] ml-4  p-3 text-xs font-mono border-2 border-black/20 font-semibold rounded-full shadow-lg active:shadow-none active:scale-95 duration-150 transition"><AiOutlineSearch size={15} /></button>
+        <button className="bg-[#FFE6C7] ml-4  p-3 text-xs font-mono border-2 border-black/20 font-semibold rounded-xl shadow-lg active:shadow-none active:scale-95 duration-150 transition"><AiOutlineSearch size={15} /></button>
       </div>
-      <div className="grid md:px-16 2xl:grid-cols-3 lg:grid-cols-2 justify-items-center h-full space-y-16 lg:space-y-0">
+      <div className="grid md:px-16 2xl:grid-cols-3 lg:grid-cols-2 justify-items-center mb-24 h-full gap-y-8 md:gap-y-16">
         {posts && posts.map((item: any) => {
           const post: Post = item.attributes
           const authors: any = item.attributes.author.data

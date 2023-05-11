@@ -18,11 +18,8 @@ export default function PostCard({post, authors, categories, image}: PostCardPro
     setHover(isHover === false ? true : false)
   }
 
-  // console.log(categories[0].attributes.name)
-  console.log()
-
   return (
-    <div onTouchStart={checkHover} onMouseEnter={checkHover} onMouseLeave={checkHover} className={`${isHover ? "translate-y-1.5 shadow-lg" : "opacity-70"} overflow-hidden relative bg-gradient-to-bl hover:bg-black/10  from-[#FFFFFF]/20 from-10%  to-black/20 select-none text-white ease-in-out transition duration-300 hover:translate-y-1.5 w-[400px] h-[325px] rounded-md shadow-xl shadow-black/30 hover:shadow-lg p-4`}>
+    <div onTouchStart={checkHover} onMouseEnter={checkHover} onMouseLeave={checkHover} className={`${isHover ? "translate-y-1.5 shadow-lg" : "opacity-70"} z-30 hover:translate-y-1.5 hover:shadow-lg overflow-hidden relative bg-gradient-to-bl hover:bg-black/10  from-[#FFFFFF]/20 from-10%  to-black/20 select-none text-white ease-in-out transition duration-300 hover:translate-y-1.5 w-[400px] h-[325px] rounded-md shadow-xl shadow-black/30 hover:shadow-lg p-4`}>
         <h1 className={`${isHover ? "" : "opacity-70"} transition duration-300 font-semibold tracking-wider text-2xl`}>{post.title}</h1>
         <div className={`${isHover ? "" : "opacity-50"}  text-[0.8rem] space-y-1 py-2`}>
           <p className={`font-mono text-[#FF6000] font-semibold underline text-sm ease-in-out`}>{categories[0].attributes.name}</p>
@@ -38,7 +35,7 @@ export default function PostCard({post, authors, categories, image}: PostCardPro
           <p className={`${isHover ? 'delay-300 opacity-50' : 'translate-y-4 opacity-0'} absolute top-0 transition duration-[600ms]  ease-in-out text-sm px-8`}>{post.excerpt}</p>
         </div>
         
-        <a  href={"/posts/" + post.slug} className={`${isHover ? 'opacity-90 delay-300' : 'opacity-0'} font-mono duration-300 ease-in-out absolute w-full left-0 bottom-0 h-16 grid place-items-center px-4 text-md transition rounded-sm origin-center hover:cursor-pointer hover:text-[#FF6000] active:text-[#FF6000] font-semibold tracking-widest text-sm`}>Read More...</a>
+        <a draggable={false} href={"/blog/" + post.slug} className={`${isHover ? 'opacity-90 delay-300' : 'opacity-0'} font-mono duration-300 ease-in-out absolute w-full left-0 bottom-0 h-16 grid place-items-center px-4 text-md transition rounded-sm origin-center hover:cursor-pointer hover:text-[#FF6000] active:text-[#FF6000] font-semibold tracking-widest text-sm`}>Read More...</a>
        
       </div>
   )

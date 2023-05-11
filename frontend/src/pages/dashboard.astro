@@ -1,0 +1,16 @@
+---
+import Layout from "../layouts/Layout.astro"
+import AuthWrapper from "../components/AuthWrapper"
+import LogoutButton from "../components/LogoutButton"
+import UserInformation from "../components/UserInformation"
+---
+
+<Layout title="Experience | sliger.dev">
+    <AuthWrapper client:only>
+        <div class="h-24"/>
+        <div class="mx-8">
+            <LogoutButton client:only />
+            <UserInformation client:only />
+        </div>
+    </AuthWrapper>
+</Layout>
