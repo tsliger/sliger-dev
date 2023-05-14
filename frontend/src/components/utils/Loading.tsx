@@ -11,7 +11,7 @@ export function LoadingCircle() {
 
 export default function Loading() {
   return (
-    <div className="absolute top-0 left-0 w-full h-[600px] grid place-items-center">
+    <div className="absolute top-0 left-0 w-full h-[500px] grid place-items-center">
         <LoadingCircle />
     </div>
   )

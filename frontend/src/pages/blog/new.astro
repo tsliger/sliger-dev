@@ -1,0 +1,13 @@
+---
+import Layout from "../../layouts/Layout.astro"
+import AuthWrapper from "../../components/auth/AuthWrapper"
+import PostCreator from "../../components/blog/PostCreator"
+---
+
+<Layout title="New Post | sliger.dev">
+    <div class="h-20"/>
+    <AuthWrapper client:only>
+        <PostCreator client:load />
+    </AuthWrapper>
+    <div class="h-48"/>
+</Layout>

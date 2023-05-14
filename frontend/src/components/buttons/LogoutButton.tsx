@@ -1,12 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react'
-import  { LoadingCircle } from '../components/Loading'
+import { useState } from 'react'
+import  { LoadingCircle } from '../utils/Loading'
+import { jwtToken } from '../../stores/jwtStore';
 
 export default function LogoutButton() {
   const [loading, setLoading] = useState(false)
 
   const LogoutUser = () => {
     setLoading(true)
-    localStorage.removeItem('jwt-token')
+    jwtToken.set(undefined);
 
     setInterval(() => {
       setLoading(false)

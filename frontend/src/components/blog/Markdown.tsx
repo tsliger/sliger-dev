@@ -3,6 +3,6 @@ import ReactMarkdown from 'react-markdown'
 
 export default function Markdown({content}) {
   return (
-    <ReactMarkdown className="space-y-8 text-sm lg:text-base">{content.attributes.content}</ReactMarkdown>
+    <ReactMarkdown className="space-y-10 leading-8 text-justify indent-8">{content.attributes.content}</ReactMarkdown>
   )
 }
