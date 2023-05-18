@@ -53,7 +53,7 @@ export default function Posts() {
 
   return (
     <div>
-      <div className="grid pt-10 lg:pt-0 2xl:grid-cols-3 lg:grid-cols-2 justify-items-center mb-24 h-full z-40 gap-y-8 md:gap-y-16">
+      <div className="grid pt-10 lg:pt-0 2xl:grid-cols-3 justify-items-center lg:grid-cols-2  mb-24 h-full z-40 gap-y-8 md:gap-y-16">
         {posts && posts.map((item: any) => {
           const post: Post = item.attributes
           const authors: any = item.attributes.author.data

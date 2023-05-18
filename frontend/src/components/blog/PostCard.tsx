@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Post } from "./Posts";
 import { useStore } from "@nanostores/react";
 import { jwtToken } from "../../stores/jwtStore";
 import PostEditButton from "./PostEditButton";
-import PostDropdown from "./PostDropdown";
+import { BlurhashCanvas } from "react-blurhash";
+import { useInView } from 'react-intersection-observer';
 
 interface PostCardProps {
   post: Post;
@@ -29,12 +30,30 @@ export default function PostCard({
 }: PostCardProps) {
   const [isHover, setHover] = useState(false);
   const [isDropdownOpen, setDropOpen] = useState(false)
+  const [imageLoaded, setLoad] = useState(false)
+  const { ref, inView, entry } = useInView();
   const createdAt = new Date(post.createdAt);
   const $token = useStore(jwtToken);
+
+  useEffect(() => {
+    if (inView === true) {
+      const target = entry.target as HTMLImageElement;
+
+      const source = entry.target.getAttribute('load-src');
+
+      target.src = source;
+    } 
+  }, [inView])
 
   const checkHover = () => {
     setHover(isHover === false ? true : false);
   };
+
+  const changeLoad = () => {
+    setTimeout(() => {
+      setLoad(true)
+    }, 200)
+  }
 
   return (
     <div
@@ -69,18 +88,30 @@ export default function PostCard({
         </p>
       </div>
       <div
-        className={`absolute -z-10 duration-300 transition top-0 left-0 w-full h-[50%] overflow-hidden opacity-10 flex items-center`}
+        className={`${imageLoaded ? "opacity-10" : "opacity-0"} absolute -z-10 duration-300 transition top-0 left-0 w-full h-[50%] overflow-hidden ease-in  flex items-center`}
       >
         {image && (
           <img
             className={`${
               isHover ? "scale-105 grayscale-0" : "grayscale"
             } transition duration-[600ms] ease-in-out w-full`}
-            src={"http://localhost:1337" + image.attributes.url}
+            ref={ref}
+            draggable={false}
+            load-src={"http://localhost:1337" + image.attributes.url}
+            onLoad={changeLoad}
             alt=""
           />
         )}
       </div>
+      {image.attributes.blurhash && 
+        <div
+          className={`absolute grayscale -z-10 duration-300 transition top-0 left-0 w-full h-[50%] overflow-hidden opacity-30 animate-pulse flex items-center`}
+        >
+          {imageLoaded === false && (
+            <BlurhashCanvas hash={image.attributes.blurhash} className="w-full"/>
+          )}
+        </div>
+      }
       <div className="absolute bottom-16 h-16 overflow-hidden w-full px-4 left-0">
         <div
           className={`${
