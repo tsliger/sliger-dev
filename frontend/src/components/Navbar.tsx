@@ -57,7 +57,7 @@ export default function Navbar() {
             </motion.div>
           </div>
           
-          <BlogDropdown setBlogOpen={setBlogOpen} blogOpen={blogOpen}/>
+          <BlogDropdown {...{setBlogOpen, blogOpen}}/>
         </div>
       </div>
     </nav>

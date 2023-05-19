@@ -3,7 +3,7 @@ import ky from "ky"
 import PostCard from './PostCard';
 import Loading from '../utils/Loading';
 import NetworkIssue from './NetworkIssue';
-import ReactPaginate from 'react-paginate';
+import { Pagination } from '@mui/material';
 
 export interface Post {
   title: string;
@@ -21,18 +21,16 @@ export default function Posts() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [metadata, setMeta] = useState(null)
-  const [itemOffset, setItemOffset] = useState(0);
+  const [currentPage, setPage] = useState(1);
 
-  const handlePageClick = async (event) => {
-    const newOffset = (event.selected * metadata.pagination.pageSize) % metadata.pagination.total;
-   
-    setItemOffset(newOffset);
-  };
+  function handlePageClick(e: any, val: any) {
+    setPage(val)
+  }
 
   const getPosts = async () => {
     setLoading(true)
     try {
-      const res: any = await ky.get(`http://localhost:1337/api/posts?populate=*&pagination[page]=${itemOffset + 1}`).json()
+      const res: any = await ky.get(`http://localhost:1337/api/posts?populate=*&pagination[page]=${currentPage}`).json()
       setPosts(res.data as []);
       setTimeout(() => {
         setLoading(false);
@@ -51,7 +49,7 @@ export default function Posts() {
 
   useEffect(() => {
     getPosts();
-  }, [itemOffset]);
+  }, [currentPage]);
 
   if (loading) {
     return <Loading />;
@@ -76,19 +74,7 @@ export default function Posts() {
       </div>
       <div className="w-full grid place-items-center absolute -bottom-40">
         {metadata.pagination && 
-          <ReactPaginate
-            className="flex space-x-10 items-center"
-            breakLabel="..."
-            nextLabel=">"
-            onPageChange={handlePageClick}
-            pageClassName="w-10 aspect-square grid place-items-center rounded-full text-[#FFE6C7]  p-3 text-xs font-mono border-2 border-black/20 font-bold shadow-lg active:shadow-none active:scale-95 duration-150 transition"
-            previousClassName="w-10 aspect-square grid place-items-center rounded-full text-[#FFE6C7]  p-3 text-xs font-mono border-2 border-black/20 font-bold shadow-lg active:shadow-none active:scale-95 duration-150 transition"
-            nextClassName="w-10 aspect-square grid place-items-center rounded-full text-[#FFE6C7]  p-3 text-xs font-mono border-2 border-black/20 font-bold shadow-lg active:shadow-none active:scale-95 duration-150 transition"
-            pageRangeDisplayed={5}
-            pageCount={metadata.pagination.pageCount}
-            previousLabel="<"
-            renderOnZeroPageCount={null}
-          />
+          <Pagination page={currentPage} variant={'outlined'} count={metadata.pagination.pageCount} boundaryCount={2} onChange={handlePageClick} hidePrevButton/>
         }
       </div>
     </div>

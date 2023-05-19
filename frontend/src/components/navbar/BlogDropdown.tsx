@@ -12,6 +12,32 @@ export default function BlogDropdown({ setBlogOpen, blogOpen }) {
     fetchData();
   }, [])
 
+  useEffect(() => {
+    async function click(event) {
+      if (dropRef.current.contains(event.target)) {
+        setBlogOpen(true)
+      } else {
+        setBlogOpen(false)
+      }
+    }
+
+    if (blogOpen) {
+      setTimeout(() => {
+        document.body.addEventListener('click', click);
+      }, 1)
+    } else {
+      setTimeout(() => {
+        document.body.removeEventListener('click', click)
+      }, 1)
+    }
+
+    return () => {
+      setTimeout(() => {
+        document.body.removeEventListener('click', click)
+      }, 1)
+    }
+  }, [dropRef, blogOpen, setBlogOpen])
+
   const fetchData = async() => {
     setLoading(true)
     try {
@@ -35,7 +61,7 @@ export default function BlogDropdown({ setBlogOpen, blogOpen }) {
   }
 
   return (
-      <div className="absolute w-80 h-72 origin-top top-0 right-0 translate-y-[5.5rem] z-50 rounded-xl ">
+      <div ref={dropRef} className="absolute w-80 h-72 origin-top top-0 right-0 translate-y-[5.5rem] z-50 rounded-xl ">
         <motion.div
             variants={variants}
             initial="hidden"

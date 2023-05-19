@@ -45,9 +45,17 @@ export default function PostCard({
     } 
   }, [inView])
 
-  const checkHover = () => {
+  const checkTouch = () => {
     setHover(isHover === false ? true : false);
   };
+
+  const endHover = () => {
+    setHover(false);
+  }
+
+  const startHover = () => {
+    setHover(true);
+  }
 
   const changeLoad = () => {
     setTimeout(() => {
@@ -57,9 +65,9 @@ export default function PostCard({
 
   return (
     <div
-      onTouchStart={checkHover}
-      onMouseEnter={checkHover}
-      onMouseLeave={checkHover}
+      onTouchStart={checkTouch}
+      onMouseEnter={startHover}
+      onMouseLeave={endHover}
       className={`${
         isHover ? "translate-y-1.5 shadow-lg" : "opacity-70"
       } z-30 overflow-hidden relative bg-gradient-to-bl hover:bg-black/10  from-[#FFFFFF]/20 from-10%  to-black/20 select-none text-white ease-in-out transition duration-300 hover:translate-y-1.5 w-[400px] h-[325px] rounded-md shadow-xl shadow-black/30 hover:shadow-lg p-4`}
