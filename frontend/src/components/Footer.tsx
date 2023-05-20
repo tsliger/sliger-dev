@@ -3,7 +3,7 @@ import { AiFillGithub, AiFillLinkedin } from "react-icons/ai"
 
 export default function Footer() {
   return (
-    <footer className="select-none h-60 w-full bg-[#FFE6C7] relative">
+    <footer className="snap-end select-none h-60 w-full bg-[#FFE6C7] relative">
       <div className="absolute top-0 left-0 h-full w-full flex flex-col justify-center">
         <div className="w-96 mx-auto flex justify-center pb-12 space-x-20">
           <div className="active:border-transparent border-transparent border-[1.5px]  hover:border-black/[5%] hover:text-[#FF6000] active:scale-95 active:shadow-none w-14 h-14 shadow-xl hover:shadow-md cursor-pointer transition-all duration-100 rounded-full">

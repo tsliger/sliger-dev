@@ -25,7 +25,26 @@ export default function Posts() {
 
   function handlePageClick(e: any, val: any) {
     setPage(val)
+
+    if ('URLSearchParams' in window) {
+      var searchParams = new URLSearchParams(window.location.search);
+      searchParams.set("page", val);
+      // window.location.search = searchParams.toString();
+      var newRelativePathQuery = window.location.pathname + '?' + searchParams.toString();
+      history.pushState(null, '', newRelativePathQuery);
+    }
   }
+
+  useEffect(() => {
+    if ('URLSearchParams' in window) {
+      const urlParams = new URLSearchParams(window.location.search);
+      const currPage = Number(urlParams.get('page'));
+      
+      if (currPage) {
+        setPage(currPage)
+      }
+    }
+  }, [currentPage])
 
   const getPosts = async () => {
     setLoading(true)
@@ -60,8 +79,8 @@ export default function Posts() {
   }
 
   return (
-    <div>
-      <div className="grid pt-10 lg:pt-0 2xl:grid-cols-3 justify-items-center lg:grid-cols-2  mb-24 h-full z-40 gap-y-8 md:gap-y-16">
+    <div className="">
+      <div className="mx-10 flex flex-col lg:flex-row lg:flex-wrap lg:justify-between items-center justify-center">
         {posts && posts.map((item: any) => {
           const post: Post = item.attributes
           const authors: any = item.attributes.author.data
@@ -72,7 +91,8 @@ export default function Posts() {
           return <PostCard key={post.slug} post={post} authors={authors} categories={categories} image={image} postId={id}/>;
         })}
       </div>
-      <div className="w-full grid place-items-center absolute -bottom-40">
+      
+      <div className="w-full grid place-items-center relative top-20 mb-24">
         {metadata.pagination && 
           <Pagination page={currentPage} variant={'outlined'} count={metadata.pagination.pageCount} boundaryCount={2} onChange={handlePageClick} hidePrevButton/>
         }
