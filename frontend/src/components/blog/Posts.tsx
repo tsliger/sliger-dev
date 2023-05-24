@@ -4,6 +4,8 @@ import PostCard from './PostCard';
 import Loading from '../utils/Loading';
 import NetworkIssue from './NetworkIssue';
 import { Pagination } from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2';
+
 
 export interface Post {
   title: string;
@@ -79,8 +81,8 @@ export default function Posts() {
   }
 
   return (
-    <div className="">
-      <div className="mx-10 flex flex-col lg:flex-row lg:flex-wrap lg:justify-between items-center justify-center">
+    <div className="mx-16">
+      <Grid container className="" xs={12} >
         {posts && posts.map((item: any) => {
           const post: Post = item.attributes
           const authors: any = item.attributes.author.data
@@ -88,9 +90,13 @@ export default function Posts() {
           const image: any = item.attributes.featured_image.data
           const id: number = item.id;
 
-          return <PostCard key={post.slug} post={post} authors={authors} categories={categories} image={image} postId={id}/>;
+          return (
+            <Grid key={post.slug} sm={12} md={8}  lg={6} xl={4}>
+              <PostCard key={post.slug} post={post} authors={authors} categories={categories} image={image} postId={id}/>
+            </Grid>
+          );
         })}
-      </div>
+      </Grid>
       
       <div className="w-full grid place-items-center relative top-20 mb-24">
         {metadata.pagination && 

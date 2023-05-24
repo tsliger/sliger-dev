@@ -4,12 +4,14 @@
     @apply bg-[#403D39];
     padding: 0;
     margin: 0;
+    perspective: 1500px;
+
 }
 
 html {
     font-family: system-ui, sans-serif;
     background-color: #F6F6F6;
-    @apply snap-y snap-mandatory scroll-smooth
+    /* @apply snap-y scroll-smooth */
 }
 code {
     font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,

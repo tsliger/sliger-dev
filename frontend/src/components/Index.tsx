@@ -1,37 +1,49 @@
-import Parallax from './Parallax'
 import { useInView, motion } from 'framer-motion';
 import { useRef } from 'react';
-
+import Parallax from './Parallax';
+import { Box } from './Box';
 
 export default function Index() {
   const paragraphRef = useRef(null)
   const isInView = useInView(paragraphRef)
   return (
-    <div className="flex flex-col items-center h-screen justify-center pt-32 select-none">
-      {/* <img className="h-[700px] absolute -translate-x-72 -translate-y-20 opacity-30" draggable="false" src="/index.png" /> */}
-      <Parallax offset={150} className="absolute" >
-        <img className="h-[700px]  -translate-x-72 -translate-y-20 opacity-30" draggable="false" src="/index.png" />
-      </Parallax>
-
-      <Parallax offset={70} className={"mb-32"}>
-        <h1 className="text-2xl font-bold mb-4 font-mono text-[#FF6000] bg-black/10 w-48 rounded-md px-4 py-2 backdrop-blur-sm shadow-xl">Hi, I'm Tom</h1>
-        <motion.p ref={paragraphRef} className="font-thin tarcking-widest font-serif w-[700px] text-white leading-8 z-50 text-xl ">
-            I am a highly skilled and experienced software engineer, passionate about
-            developing elegant solutions to challenging problems. With a solid
-            background in computer science and a keen eye for detail, I bring a depth of
-            knowledge to each project I undertake. Whether it's building a scalable web
-            application or designing a machine learning algorithm, I am dedicated to
-            creating software that not only meets but exceeds client expectations.
-            Thanks for visiting my portfolio, and I look forward to the opportunity to
-            work with you.
-        </motion.p>
-      </Parallax>
-      <Parallax offset={40}>
-        <div className="flex z-50 space-x-4">
-          <button className="text-[#FFE6C7]  p-3 text-xs font-mono border-2 border-black/20 font-bold rounded-xl shadow-lg active:shadow-none active:scale-95 duration-150 transition grid-items-center">Resume</button>
-          <button className="text-[#FFE6C7]  p-3 text-xs font-mono border-2 border-black/20 font-bold rounded-xl shadow-lg active:shadow-none active:scale-95 duration-150 transition grid-items-center">View Posts...</button>
+    <div className="min-h-screen relative">
+      <div className="flex justify-center min-h-screen  h-[900px] lg:h-[1100px] pb-28 md:pb-0 pt-20 select-none overflow-hidden">
+        <div className="w-full flex justify-center relative">
+          <div className="overflow-hidden absolute" >
+            <Parallax offset={200}>
+              <div className="w-[700px] h-[700px] lg:w-[900px] lg:h-[900px]">
+                <motion.img animate={{ opacity: 0.3 }} initial={{ opacity: 0 }} transition={{ duration: 1, delay: 0.2 }}  className="origin-center" draggable="false" src="/index.png" />
+              </div>
+            </Parallax>
+          </div>
+          <div className='absolute -translate-y-12 lg:translate-y-8'>
+            <Parallax offset={450}>
+              <motion.h1 animate={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: -20 }} transition={{ duration: 1, delay: 0.35 }}  className="text-lg lg:text-2xl font-bold mb-4 font-mono text-[#FF6000] mx-12 md:mx-0  bg-black/10 w-48 rounded-md px-4 py-2 backdrop-blur-sm shadow-xl">Hi, I'm Tom</motion.h1>
+              <motion.p animate={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 20 }} transition={{ duration: 1.5, delay: 0.6 }} ref={paragraphRef} className="font-thin tarcking-widest font-serif mx-12 md:mx-0 md:w-[600px] lg:w-[700px] text-white leading-6 md:leading-8 z-50 text-sm md:text-base lg:text-xl ">
+                  I am a highly skilled and experienced software engineer, passionate about
+                  developing elegant solutions to challenging problems. With a solid
+                  background in computer science and a keen eye for detail, I bring a depth of
+                  knowledge to each project I undertake. Whether it's building a scalable web
+                  application or designing a machine learning algorithm, I am dedicated to
+                  creating software that not only meets but exceeds client expectations.
+                  Thanks for visiting my portfolio, and I look forward to the opportunity to
+                  work with you.
+              </motion.p>
+            </Parallax>
+          </div>
         </div>
-      </Parallax>
+      </div>
+      <div className="flex z-50 space-x-4 relative mx-auto w-96 -translate-y-56 justify-center">
+        <Parallax offset={150} >
+          <Box>
+            <div className="flex space-x-4">
+              <button className="text-[#FFE6C7]  p-3 text-xs font-mono border-2 border-black/20 font-bold rounded-xl shadow-lg active:shadow-none active:scale-95 duration-150 transition grid-items-center">Resume</button>
+              <a href="/blog" className="text-[#FFE6C7]  p-3 text-xs font-mono border-2 border-black/20 font-bold rounded-xl shadow-lg active:shadow-none active:scale-95 duration-150 transition grid-items-center">View Posts...</a>
+            </div>
+          </Box>
+        </Parallax>
+      </div>
     </div>
   )
 }

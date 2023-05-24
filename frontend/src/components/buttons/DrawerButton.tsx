@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { HiMenuAlt4 } from "react-icons/hi"
+import { HiMenuAlt4, HiX } from "react-icons/hi"
 import { motion } from 'framer-motion';
 
 function Drawer({isDrawerOpen}) {
@@ -9,7 +9,7 @@ function Drawer({isDrawerOpen}) {
   }
 
   return (
-    <motion.div variants={variants} initial={'hidden'} animate={isDrawerOpen ? "visible" : "hidden"} className="origin-top absolute w-full h-[300px] rounded-b-2xl shadow-xl z-[99] top-20 bg-red-500">
+    <motion.div variants={variants} initial={'hidden'} animate={isDrawerOpen ? "visible" : "hidden"} className="origin-top absolute w-full h-[300px] rounded-b-2xl shadow-xl z-[99] top-20 bg-[#403D39] border-b-[3px] border-black/20">
       fdsaf
     </motion.div>
   )
@@ -28,9 +28,10 @@ export default function DrawerButton() {
 
   return (
     <>
-      <div className="absolute right-0 top-0 h-20 aspect-square flex items-center justify-end pr-8 lg:pr-16 lg:hidden z-[99]">
+      <div className="absolute z-[500] right-0 top-0 h-20 aspect-square flex items-center justify-end pr-8 lg:pr-16 lg:hidden ">
           <motion.button onClick={changeState} className="text-[#FFE6C7] z-[500] p-3 text-xs font-mono border-2 border-black/20 font-bold rounded-xl shadow-lg active:shadow-none active:scale-95 duration-150 transition grid-items-center">
-              <HiMenuAlt4 size={20}/>
+              {!isDrawerOpen && <HiMenuAlt4 size={20}/> }
+              {isDrawerOpen && <HiX size={20}/> }
           </motion.button>
       </div>
       <Drawer {...{isDrawerOpen}}/>
