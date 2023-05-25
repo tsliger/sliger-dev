@@ -66,7 +66,7 @@ export default function PostCard({
   }
 
   return (
-    <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5}>
+    <Tilt tiltMaxAngleX={2} tiltMaxAngleY={0}>
     <div
       onTouchStart={checkTouch}
       onMouseEnter={startHover}

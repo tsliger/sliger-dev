@@ -1,4 +1,4 @@
-import { useState, useRef, useLayoutEffect, ReactNode } from 'react'
+import { useState, useRef, useEffect, ReactNode } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 
 type ParallaxProps = {
@@ -20,7 +20,7 @@ const Parallax = ({ children, offset = 50 }: ParallaxProps): JSX.Element => {
 
   const y = useTransform(scrollY, [initial, final], [offset, -offset])
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const element = ref.current
     // save our layout measurements in a function in order to trigger
     // it both on mount and on resize

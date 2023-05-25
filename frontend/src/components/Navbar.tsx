@@ -5,7 +5,7 @@ import BlogDropdown from "./navbar/BlogDropdown";
 
 export default function Navbar() {
   const [blogOpen, setBlogOpen] = useState(false);
-  const [currentTab, setTab] = useState(undefined);
+  const [currentTab, setTab] = useState('');
 
   useEffect(() => {
     var parser = document.createElement('a');
