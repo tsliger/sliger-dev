@@ -59,7 +59,7 @@ const imgUrl = post.attributes.featured_image.data ? post.attributes.featured_im
     </div>
     <main class="text-white mx-8 z-50 lg:mx-auto lg:w-[900px] pt-8">
       <PublishedDate date={post.attributes.publishedAt} text={"Published"} />
-      <div class="mb-48 mt-8 leading-10">
+      <div class="mb-48 mt-8 leading-10 font-serif">
         <Markdown client:load content={post} />
       </div>
     </main>

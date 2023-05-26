@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform, useAnimation, useInView } from "framer
 
 const squareVariants = {
   visible: { opacity: 1, scale: 1, transition: { duration: 1, delay: 0.25 } },
-  hidden: { opacity: 0, scale: 0.95, transition: { duration: 0.25 }}
+  hidden: { opacity: 0, transition: { duration: 0.25 }}
 };
 
 export function Box({children, className=""}) {
@@ -14,9 +14,10 @@ export function Box({children, className=""}) {
   useEffect(() => {
     if (isInView) {
       controls.start("visible");
-    } else {
-      controls.start("hidden")
-    }
+    } 
+    // else {
+    //   controls.start("hidden")
+    // }
   }, [controls, isInView]);
 
   return <motion.div animate={controls} initial="hidden" variants={squareVariants} ref={ref} className={className} >
