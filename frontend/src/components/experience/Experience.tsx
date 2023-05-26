@@ -4,6 +4,7 @@ import Tilt from 'react-parallax-tilt';
 import SkillTreeProvider from "./SkillTreeProvider";
 import Parallax from "../Parallax";
 import { MdArrowDropDown } from 'react-icons/md'
+import ExperienceCard from "./ExperienceCard";
 
 export default function Experience() {
   return (
@@ -17,16 +18,8 @@ export default function Experience() {
                 <h1 className="text-6xl text-white/50 drop-shadow-md font-serif tracking-widest select-none">Experience</h1>
               </div>
               <div className="flex justify-center items-center space-x-32 w-full">
-                <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5}>
-                  <div className="w-[440px] h-[250px] experience-card cursor-pointer">
-
-                  </div>
-                </Tilt>
-                <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5}>
-                  <div className="w-[440px] h-[250px] experience-card cursor-pointer">
-
-                  </div>
-                </Tilt>
+                <ExperienceCard />
+                <ExperienceCard />
               </div>
             </div>
           </Parallax>
@@ -44,7 +37,9 @@ export default function Experience() {
         <Box >
           <Parallax offset={300}>
             <div className="min-h-screen flex flex-col items-center justify-center  mx-16">
-              <p className="self-start translate-x-32 text-5xl  font-semibold tracking-widest font-serif text-gray-200 mb-24">Projects</p>
+              <p className="self-start translate-x-32 text-5xl  font-semibold tracking-widest font-serif text-gray-200 ">Projects</p>
+              <p className="self-start translate-x-32 pb-24 mt-1 font-semibold tracking-widest font-mono text-gray-200/20">Some things I've worked on</p>
+
               <div className="flex justify-center space-x-8">
                 <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5}>
                   <div className="w-[340px] h-[400px] experience-card">
