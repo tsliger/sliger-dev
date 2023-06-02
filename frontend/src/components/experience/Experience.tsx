@@ -1,12 +1,29 @@
-import ScrollBar from "../ScrollBar";
+import { useEffect, useState } from "react";
 import { Box } from "../Box";
+import { MdArrowDropDown } from 'react-icons/md'
+import ky from "ky";
+import ScrollBar from "../ScrollBar";
 import Tilt from 'react-parallax-tilt';
 import SkillTreeProvider from "./SkillTreeProvider";
 import Parallax from "../Parallax";
-import { MdArrowDropDown } from 'react-icons/md'
 import ExperienceCard from "./ExperienceCard";
+import ProjectCard from "../ProjectCard";
 
 export default function Experience() {
+  const [projects, setProjects] = useState(undefined);
+  
+  const fetchProjects = async () => {
+    const data: any = await ky.get('http://localhost:1337/api/projects?populate=*').json();
+
+    if (data) {
+      setProjects(data.data)
+    }
+  }
+  
+  useEffect(() => {
+    fetchProjects();
+  }, [])
+
   return (
     <>
       <ScrollBar />
@@ -41,21 +58,13 @@ export default function Experience() {
               <p className="self-start translate-x-32 pb-24 mt-1 font-semibold tracking-widest font-mono text-gray-200/20">Some things I've worked on</p>
 
               <div className="flex justify-center space-x-8">
-                <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5}>
-                  <div className="w-[340px] h-[400px] experience-card">
-
-                  </div>
-                </Tilt>
-                <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5}>
-                  <div className="w-[340px] h-[400px] experience-card">
-
-                  </div>
-                </Tilt>
-                <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5}>
-                  <div className="w-[340px] h-[400px] experience-card">
-
-                  </div>
-                </Tilt>
+                {projects && projects.map((data, i) => {
+                  return (
+                    <Tilt key={i} tiltMaxAngleX={5} tiltMaxAngleY={5}>
+                      <ProjectCard {...{data}}/>
+                    </Tilt>
+                  )
+                })}
               </div>
             </div>
           </Parallax>
