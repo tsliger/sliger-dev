@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { RxDoubleArrowRight } from "react-icons/rx"
 import { BlurhashCanvas } from "react-blurhash";
+
 import { useInView } from "react-intersection-observer";
+
 
 export default function BlogDropdownArticle({ post=undefined, i, postsLoading }) {
   const [isHovering, setHover] = useState(false)
   const [imageLoaded, setLoad] = useState(false)
+
 
   const { ref, inView, entry } = useInView({});
 

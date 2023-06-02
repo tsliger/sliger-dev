@@ -8,6 +8,7 @@ import { useInView } from 'react-intersection-observer';
 import Tilt from 'react-parallax-tilt';
 
 
+
 interface PostCardProps {
   post: Post;
   authors: any;
@@ -46,6 +47,7 @@ export default function PostCard({
       target.src = source;
     } 
   }, [inView])
+
 
   const checkTouch = async() => {
     setHover(isHover === false ? true : false);
