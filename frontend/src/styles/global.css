@@ -19,7 +19,7 @@ code {
 }
 
 .input-field { 
-    @apply bg-transparent h-10 !outline-none placeholder:text-white/20 border-2 px-4 rounded-lg shadow-lg focus:border-[#FFE6C7] focus:shadow-none border-white/20 w-[330px] text-white font-mono;
+    @apply bg-transparent h-10 !outline-none placeholder:text-white/20 border-2 px-4 rounded-lg shadow-lg focus:border-[#FFE6C7] focus:shadow-none border-white/20  text-white font-mono;
 }
 
 .bg-filter::before {

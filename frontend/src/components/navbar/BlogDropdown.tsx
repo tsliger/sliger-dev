@@ -9,8 +9,10 @@ export default function BlogDropdown({ setBlogOpen, blogOpen }) {
   const dropRef = useRef(undefined)
 
   useEffect(() => {
-    fetchData();
-  }, [])
+    if (blogOpen === true && posts === undefined) {
+      fetchData();
+    }
+  }, [blogOpen])
 
   useEffect(() => {
     async function click(event) {

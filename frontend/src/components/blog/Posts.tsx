@@ -101,8 +101,8 @@ export default function Posts() {
   return (
     <div className="mx-16">
       <div className="space-x-4">
-        <button className="text-xs hover:text-[#FF6000] bg-black/5 hover:bg-black/10 transition-all duration-200 ease-in-out shadow-md px-6 py-2 rounded-full font-semibold text-white tracking-wider">Most Recent</button>
-        <button className="text-xs hover:text-[#FF6000] bg-black/5 hover:bg-black/10 transition-all duration-200 ease-in-out shadow-md px-6 py-2 rounded-full font-semibold text-white tracking-wider">Technology</button>
+        <button className="text-xs hover:text-[#FF6000] bg-[#FF6000] hover:bg-black/20 transition-all duration-200 ease-in-out shadow-md px-6 py-2 rounded-full font-semibold text-white tracking-wider">Most Recent</button>
+        <button className="text-xs hover:text-[#FF6000] bg-[#FF6000] hover:bg-black/20 transition-all duration-200 ease-in-out shadow-md px-6 py-2 rounded-full font-semibold text-white tracking-wider">Technology</button>
       </div>
       <Grid container className="" xs={12}>
         {posts &&
