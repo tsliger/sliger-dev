@@ -48,9 +48,11 @@ export default function Experience() {
           </Parallax>
           <div className="absolute bottom-0">
             <Parallax offset={-80}>
-              <button className="text-[#FFE6C7] z-[99] bottom-8 p-2 text-xs font-mono border-2 hover:animate-none   border-black/20 font-bold rounded-full animate-bounce shadow-lg active:shadow-none active:scale-95 duration-150 transition grid-items-center">
-                <MdArrowDropDown size={25}/>
-              </button>
+              <a href={'#projects'}>
+                <button className="text-[#FFE6C7] z-[99] bottom-8 p-2 text-xs font-mono border-2 hover:animate-none   border-black/20 font-bold rounded-full animate-bounce shadow-lg active:shadow-none active:scale-95 duration-150 transition grid-items-center">
+                  <MdArrowDropDown size={25}/>
+                </button>
+              </a>
             </Parallax>
           </div>
         </div>

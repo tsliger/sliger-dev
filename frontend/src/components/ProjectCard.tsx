@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { AiFillGithub } from "react-icons/ai";
 import { useInView } from "react-intersection-observer";
 
@@ -45,8 +45,8 @@ export default function ProjectCard({ data }) {
               data.attributes.banner_image.data.attributes.url
             }
             className={`${
-              isActive ? "scale-105 opacity-20" : "opacity-10 grayscale"
-            } transition duration-[1200ms] origin-top ease-in-out object-fit `}
+              isActive ? "opacity-20 scale-100" : "scale-105 opacity-10 grayscale"
+            } transition duration-[1200ms] origin-center ease-in-out object-fit `}
           />
         </div>
         <div className="w-full absolute bottom-0 left-0 h-8 bg-gradient-to-t from-black/30" />

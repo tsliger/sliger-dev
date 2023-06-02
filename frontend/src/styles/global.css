@@ -37,18 +37,18 @@ code {
 }
 
 
+
 .color-change-image:hover {
     filter: invert(61%) sepia(78%) saturate(5759%) hue-rotate(1deg) brightness(102%) contrast(105%);
     transition: filter;
     @apply duration-150 ease-in-out;
 }
+
 .color-change-image:active {
     filter: none;
     transition: filter;
     @apply duration-150 ease-in-out;
 }
-
-
 
 .experience-card {
     --glow-opacity: 0;
