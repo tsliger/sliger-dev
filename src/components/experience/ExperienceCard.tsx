@@ -3,28 +3,28 @@ import Tilt from 'react-parallax-tilt';
 
 
 export default function ExperienceCard({ type=undefined }) {
-  const [isHovering, setHovering] = useState(false)
+  const [isActive, setActive] = useState(false)
 
   return (
     <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5}>
-        <div className="w-[440px] h-[250px] experience-card cursor-pointer">
+        <div onMouseEnter={() => setActive(true)} onMouseLeave={() => setActive(false)} className="w-[440px] h-[250px] experience-card cursor-pointer">
           {type === "work" && (
-            <Work />
+            <Work {...{isActive}}/>
           )}
           {type === "school" && (
-            <School />
+            <School {...{isActive}}/>
           )}
         </div>
     </Tilt>
   )
 }
 
-const Work = () => {
+const Work = ({ isActive }) => {
   return (
     <div className="w-full h-full flex flex-col px-6 space-y-2">
       <h1 className="font-bold text-lg tracking-wider text-white/70 py-2">Work Experience</h1>
       <div className='flex items-center '>
-        <div className="opacity-50 rounded-lg overflow-hidden border-[3px] p-2 bg-white shadow-md border-black/10">
+        <div className={`${isActive ? "opacity-80" : "opacity-50"} transition-all duration-300 ease-in-out rounded-lg overflow-hidden border-[3px] p-2 bg-white shadow-md border-black/10`}>
           <img className="h-10 w-10" src={'/work-logo.jpg'} />
         </div>
           
@@ -38,12 +38,12 @@ const Work = () => {
   )
 }
 
-const School = () => {
+const School = ({ isActive }) => {
   return (
     <div className="w-full h-full flex flex-col px-6 space-y-2">
       <h1 className="font-bold text-lg tracking-wider text-white/70 py-2">Education</h1>
       <div className='flex items-center flex-row'>
-        <div className="bg-white opacity-50  rounded-lg overflow-hidden border-[3px] p-2 shadow-md border-black/10">
+        <div className={`${isActive ? "opacity-80" : "opacity-50"} bg-white transition-all duration-300 ease-in-out rounded-lg overflow-hidden border-[3px] p-2 shadow-md border-black/10`}>
           <img className="h-10 w-10" src={'/education-logo.jpg'} />
         </div>
         <div className="pl-4">

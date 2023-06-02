@@ -12,7 +12,7 @@ export default function SkillTree({ data }) {
             return (
               <li className="flex items-center -translate-x-1" key={i}>
                 <BsFillXDiamondFill className="text-gray-200" size={15} />{" "}
-                <span className="ml-3 text-[#DD5909] bg-black/30 px-4 py-3  rounded-xl shadow-lg shadow-black/20">
+                <span className="ml-3 text-[#DD5909] bg-black/30 px-4 py-3  rounded-xl shadow-lg select-text shadow-black/20">
                   {data.attributes.text}
                 </span>
               </li>
