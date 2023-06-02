@@ -5,6 +5,9 @@ import { jwtToken } from "../../stores/jwtStore";
 import PostEditButton from "./PostEditButton";
 import { BlurhashCanvas } from "react-blurhash";
 import { useInView } from 'react-intersection-observer';
+import Tilt from 'react-parallax-tilt';
+
+
 
 interface PostCardProps {
   post: Post;
@@ -45,24 +48,34 @@ export default function PostCard({
     } 
   }, [inView])
 
-  const checkHover = () => {
+
+  const checkTouch = async() => {
     setHover(isHover === false ? true : false);
   };
 
-  const changeLoad = () => {
+  const endHover = async() => {
+    setHover(false);
+  }
+
+  const startHover = async() => {
+    setHover(true);
+  }
+
+  const changeLoad = async() => {
     setTimeout(() => {
       setLoad(true)
     }, 200)
   }
 
   return (
+    <Tilt tiltMaxAngleX={2} tiltMaxAngleY={0}>
     <div
-      onTouchStart={checkHover}
-      onMouseEnter={checkHover}
-      onMouseLeave={checkHover}
+      onTouchStart={checkTouch}
+      onMouseEnter={startHover}
+      onMouseLeave={endHover}
       className={`${
         isHover ? "translate-y-1.5 shadow-lg" : "opacity-70"
-      } z-30 overflow-hidden relative bg-gradient-to-bl hover:bg-black/10  from-[#FFFFFF]/20 from-10%  to-black/20 select-none text-white ease-in-out transition duration-300 hover:translate-y-1.5 w-[400px] h-[325px] rounded-md shadow-xl shadow-black/30 hover:shadow-lg p-4`}
+      } z-30 overflow-hidden relative bg-gradient-to-bl my-8 hover:bg-black/10  from-[#FFFFFF]/20 from-10%  to-black/20 select-none text-white ease-in-out transition duration-300 hover:translate-y-1.5 w-[350px] md:w-[400px] h-[325px] rounded-md shadow-xl shadow-black/30 hover:shadow-lg p-4`}
     >
       {$token && (
         <>
@@ -144,5 +157,6 @@ export default function PostCard({
         Read More...
       </a>
     </div>
+    </Tilt>
   );
 }

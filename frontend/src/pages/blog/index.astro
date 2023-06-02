@@ -1,17 +1,15 @@
 ---
 import Layout from "../../layouts/Layout.astro"
 import Posts from "../../components/blog/Posts"
-import SearchBar from "../../components/SearchBar"
 ---
 
 <Layout title="Blog | sliger.dev">
     <div class="h-32"/>
-    <div class="flex lg:flex-row flex-col mx-16">
-        <h1 class="grid place-items-center pb-12 text-3xl font-semibold text-white tracking-wider">Recent Posts</h1>
+    <div class="flex lg:flex-row items-center lg:items-start flex-col mx-16">
+        <h1 class="grid place-items-center pb-12 text-4xl font-semibold font-serif text-white tracking-wider">Blog Posts</h1>
         <div class="flex-grow"/>
-        <SearchBar client:load/>
     </div>
-    <div class="w-full relative pb-24 ">
+    <div class="w-full relative pb-24 min-h-[800px]">
 	    <Posts client:load/>
     </div>
 </Layout>

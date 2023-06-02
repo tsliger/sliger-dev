@@ -5,7 +5,9 @@ import BlogDropdown from "./navbar/BlogDropdown";
 
 export default function Navbar() {
   const [blogOpen, setBlogOpen] = useState(false);
-  const [currentTab, setTab] = useState(undefined);
+
+  const [currentTab, setTab] = useState('');
+
 
   useEffect(() => {
     var parser = document.createElement('a');
@@ -22,7 +24,7 @@ export default function Navbar() {
   }, [])
 
   return (
-    <nav className={`${!blogOpen ? "overflow-hidden" : ""} select-none h-20 z-50 absolute flex items-center px-8 lg:px-16 text-white w-full shadow-sm shadow-[#403D39]`}>
+    <nav className={`${!blogOpen ? "overflow-hidden" : ""} bg-[#403D39] select-none h-20 z-[300] snap-start absolute flex items-center px-8 lg:px-16 text-white w-full shadow-sm shadow-[#403D39]`}>
       <div className="h-16 lg:h-full aspect-square">
         <a
           draggable={false}
@@ -38,7 +40,7 @@ export default function Navbar() {
         </a>
       </div>
       <div className="w-full" />
-      <div className="hidden lg:flex h-full text-sm md:text-base font-mono">
+      <div className="hidden lg:flex h-full text-sm md:text-base font-mono translate-x-8">
         <a draggable={false} href="/" className="nav-button">
           <div className={`${currentTab === null ? "nav-child-active" : ""} nav-child-button`}>
             Home
@@ -57,7 +59,7 @@ export default function Navbar() {
             </motion.div>
           </div>
           
-          <BlogDropdown setBlogOpen={setBlogOpen} blogOpen={blogOpen}/>
+          <BlogDropdown {...{setBlogOpen, blogOpen}}/>
         </div>
       </div>
     </nav>
