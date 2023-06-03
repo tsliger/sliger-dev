@@ -1,0 +1,1 @@
+import{r as a}from"./index.a2555fc4.js";import{j as s}from"./jsx-runtime.39e0017a.js";function c(){return a.useEffect(()=>{if("URLSearchParams"in window){const r=new URLSearchParams(window.location.search).get("q");console.log(r)}},[]),s.jsx("div",{className:"mt-24 mx-16",children:"PostSearch"})}export{c as default};
