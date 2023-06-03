@@ -1,6 +1,5 @@
-import React from 'react'
 import readingTime from "reading-time"
-import { BiTimer } from "react-icons/bi"
+import { BiTimer } from "react-icons/bi/index"
  
 export default function ReadingTime({ content }) {
   const stats = readingTime(content.attributes.content);

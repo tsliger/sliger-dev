@@ -1,1 +1,0 @@
-import{u as s}from"./index.modern.7217f767.js";import{u as i}from"./index.6f8751de.js";import{j as n}from"./jwtStore.d3a856e6.js";import{j as t}from"./jsx-runtime.39e0017a.js";import"./index.a2555fc4.js";function j({children:r}){const o=i(n),{isExpired:e}=s(o);if(o&&!e)return t.jsx(t.Fragment,{children:r});window.location.href="/login"}export{j as default};

@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { AiFillGithub } from "react-icons/ai";
+import { AiFillGithub } from "react-icons/ai/index";
 import { useInView } from "react-intersection-observer";
 
 export default function ProjectCard({ data }) {

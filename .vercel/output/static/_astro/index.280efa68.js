@@ -1,0 +1,1 @@
+import{r as l}from"./index.94c7be44.js";function r(e,t,u){let n=new Set([...t,void 0]);return e.listen((s,i)=>{n.has(i)&&u(s,i)})}function a(e,t={}){let u=l.useCallback(s=>t.keys?r(e,t.keys,s):e.listen(s),[t.keys,e]),n=e.get.bind(e);return l.useSyncExternalStore(u,n,n)}export{a as u};

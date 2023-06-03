@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { RiArrowDropDownLine } from "react-icons/ri";
+import { RiArrowDropDownLine } from "react-icons/ri/index";
 import BlogDropdown from "./navbar/BlogDropdown";
 
 export default function Navbar() {

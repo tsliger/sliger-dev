@@ -1,5 +1,4 @@
-import React from "react";
-import { BsFillXDiamondFill } from "react-icons/bs";
+import { BsFillXDiamondFill } from "react-icons/bs/index";
 
 export default function SkillTree({ data }) {
   return (

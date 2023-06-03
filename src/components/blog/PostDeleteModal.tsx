@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Modal } from "@mui/material";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose } from "react-icons/ai/index";
 import ky from "ky";
 import { Formik } from "formik";
 import { object, string } from 'yup';

@@ -1,5 +1,5 @@
 import React from 'react'
-import { BsThreeDots } from 'react-icons/bs'
+import { BsThreeDots } from 'react-icons/bs/index'
 import PostDropdown from './PostDropdown'
 
 export default function PostEditButton({ onClick, isDropdownOpen, postId, setDropOpen }) {

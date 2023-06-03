@@ -1,4 +1,3 @@
-import React from 'react'
 import  { LoadingCircle } from '../utils/Loading'
 
 export default function PostButton({ isSubmitting }) {

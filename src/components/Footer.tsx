@@ -1,5 +1,4 @@
-import React from 'react'
-import { AiFillGithub, AiFillLinkedin } from "react-icons/ai"
+import { AiFillGithub, AiFillLinkedin } from "react-icons/ai/index"
 
 export default function Footer() {
   return (

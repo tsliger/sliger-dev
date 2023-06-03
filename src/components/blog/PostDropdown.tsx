@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion } from "framer-motion";
-import { MdDelete, MdEdit } from "react-icons/md";
+import { MdDelete, MdEdit } from "react-icons/md/index";
 import PostDeleteModal from './PostDeleteModal';
 
 export default function PostDropdown({ isDropdownOpen, postId, setDropOpen}) {

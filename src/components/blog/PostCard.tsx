@@ -7,8 +7,6 @@ import { BlurhashCanvas } from "react-blurhash";
 import { useInView } from 'react-intersection-observer';
 import Tilt from 'react-parallax-tilt';
 
-
-
 interface PostCardProps {
   post: Post;
   authors: any;

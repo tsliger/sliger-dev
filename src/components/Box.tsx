@@ -1,5 +1,5 @@
 import { useRef, useEffect } from "react";
-import { motion, useScroll, useTransform, useAnimation, useInView } from "framer-motion";
+import { motion, useAnimation, useInView } from "framer-motion";
 
 const squareVariants = {
   visible: { opacity: 1, scale: 1, transition: { duration: 1, delay: 0.25 } },
