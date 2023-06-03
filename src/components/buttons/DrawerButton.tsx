@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { HiMenuAlt4, HiX } from "react-icons/hi"
+import { HiMenuAlt4, HiX } from "react-icons/hi/index"
 import { motion } from 'framer-motion';
 
 function Drawer({isDrawerOpen}) {

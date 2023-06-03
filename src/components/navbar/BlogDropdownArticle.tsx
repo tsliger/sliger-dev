@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { RxDoubleArrowRight } from "react-icons/rx"
+import { RxDoubleArrowRight } from "react-icons/rx/index"
 import { BlurhashCanvas } from "react-blurhash";
-
 import { useInView } from "react-intersection-observer";
 
 

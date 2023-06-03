@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Box } from "../Box";
-import { MdArrowDropDown } from 'react-icons/md'
+import { MdArrowDropDown } from 'react-icons/md/index'
 import ky from "ky";
 import ScrollBar from "../ScrollBar";
 import Tilt from 'react-parallax-tilt';

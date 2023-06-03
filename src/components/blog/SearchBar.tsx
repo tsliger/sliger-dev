@@ -1,5 +1,5 @@
-import React, { useRef, useState } from "react";
-import { AiOutlineSearch } from "react-icons/ai";
+import { useRef, useState } from "react";
+import { AiOutlineSearch } from "react-icons/ai/index";
 
 export default function SearchBar() {
   const ref = useRef(null);

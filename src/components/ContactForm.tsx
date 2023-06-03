@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { Formik } from 'formik';
-import { object, string, number, date, InferType } from 'yup';
+import { object, string } from 'yup';
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 
 const contactFormSchema = object({
