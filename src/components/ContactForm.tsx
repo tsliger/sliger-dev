@@ -2,10 +2,11 @@ import { useRef } from 'react'
 import { Formik } from 'formik';
 import { object, string } from 'yup';
 import HCaptcha from "@hcaptcha/react-hcaptcha";
+import ky from "ky";
 
 const contactFormSchema = object({
-  firstName: string().min(2, 'First name too short').max(50, 'First name too long').required('First name required'),
-  lastName: string().min(2, 'Last name too short').max(50, 'Last name too long').required('Last name required'),
+  first_name: string().min(2, 'First name too short').max(50, 'First name too long').required('First name required'),
+  last_name: string().min(2, 'Last name too short').max(50, 'Last name too long').required('Last name required'),
   email: string().email('Not a valid email').required('Email required'),
   description: string().min(20, 'Description too short').max(500, 'Description too long').required('Description required')
 });
@@ -21,13 +22,17 @@ export default function ContactForm() {
     captchaRef.current.execute();
   };
 
+  const postData = async (values) => {
+    ky.post('http://localhost:1337/api/contacts', { json: {data: values} })
+  }
+
   return (
     <Formik
-      initialValues={{ firstName: '', lastName: '', email: '',  description: '' }}
+      initialValues={{ first_name: '', last_name: '', email: '',  description: '', captcha: '' }}
       validationSchema={contactFormSchema}
       onSubmit={(values, { setSubmitting }) => {
         setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
+          postData(values)
           setSubmitting(false);
         }, 400);
       }}
@@ -44,10 +49,10 @@ export default function ContactForm() {
         initialStatus
       }) => (
         <form onSubmit={handleSubmit} className="w-96 lg:w-[600px] space-y-6 -translate-y-6">
-          <p className="h-12 flex items-end text-red-500 w-full">{errors && errors.firstName || errors.lastName || errors.email || errors.description}</p>
+          <p className="h-12 flex items-end text-red-500 w-full">{errors && errors.first_name || errors.last_name || errors.email || errors.description}</p>
           <div className="w-full flex space-x-4">
-            <input onChange={handleChange} onBlur={handleBlur} className="input-field w-full" name="firstName" id="firstName" placeholder='First Name' value={values.firstName}/>
-            <input onChange={handleChange} onBlur={handleBlur} className="input-field w-full" name="lastName" id="lastName" placeholder='Last Name' value={values.lastName}/>
+            <input onChange={handleChange} onBlur={handleBlur} className="input-field w-full" name="first_name" id="first_name" placeholder='First Name' value={values.first_name}/>
+            <input onChange={handleChange} onBlur={handleBlur} className="input-field w-full" name="last_name" id="last_name" placeholder='Last Name' value={values.last_name}/>
           </div>
           <input onChange={handleChange} onBlur={handleBlur} className="input-field w-full" name="email" type="email" id="email" placeholder='Email' value={values.email}/>
           <textarea onChange={handleChange} onBlur={handleBlur} className="input-field w-full py-2 h-48" name="description" id="description" value={values.description} placeholder='Enter text here....'/>
