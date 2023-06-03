@@ -16,6 +16,8 @@ export default function LoginComponent() {
   const $jwtToken = useStore(jwtToken);
   const { isExpired } = useJwt($jwtToken);
 
+ 
+
   if ($jwtToken && !isExpired) {
     setTimeout(() => {
       return (window.location.href = "/dashboard");
@@ -47,7 +49,7 @@ export default function LoginComponent() {
   };
 
   return (
-    <div className="bg-gradient-to-bl shadow-xl hover:shadow-lg duration-300 transition from-[#FFFFFF]/20 from-10%  to-black/20 rounded-lg w-96 h-96 py-8 relative">
+    <div className="bg-gradient-to-bl grid place-items-center shadow-xl hover:shadow-lg duration-300 transition from-[#FFFFFF]/20 from-10%  to-black/20 rounded-lg w-96 py-8 relative">
       <form
         ref={formRef}
         onSubmit={(event) => event.preventDefault()}
