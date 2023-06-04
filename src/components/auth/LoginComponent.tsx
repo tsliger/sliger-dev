@@ -1,9 +1,10 @@
 import { useState, useRef } from "react";
 import ky from "ky";
 import { useJwt } from "react-jwt";
-import { LoadingCircle } from "../utils/Loading";
 import { useStore } from "@nanostores/react";
 import { jwtToken } from "../../stores/jwtStore";
+import { LoadingCircle } from "../utils/Loading";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 
 export default function LoginComponent() {
   const [formData, setData] = useState({
@@ -11,12 +12,20 @@ export default function LoginComponent() {
     password: undefined,
   });
   const [loading, setLoading] = useState(false);
+  const [verifyToken, setToken] = useState(null);
   const [error, setError] = useState("");
   const formRef = useRef(null);
   const $jwtToken = useStore(jwtToken);
   const { isExpired } = useJwt($jwtToken);
+  const captchaRef = useRef(null);
 
- 
+  const onLoad = () => {
+    // this reaches out to the hCaptcha JS API and runs the
+    // execute function on it. you can use other functions as
+    // documented here:
+    // https://docs.hcaptcha.com/configuration#jsapi
+    captchaRef.current.execute();
+  };
 
   if ($jwtToken && !isExpired) {
     setTimeout(() => {
@@ -28,12 +37,13 @@ export default function LoginComponent() {
     setLoading(true);
 
     try {
-      const data: any = await ky.post('http://localhost:1337/api/auth/local', {json: formData}).json();
-      jwtToken.set(data.jwt);
+      const data: any = await ky.post('http://localhost:1337/api/logins', {json: {"data": {...formData, "captcha": verifyToken} }}).json();
+      const token = data.data.attributes.access_token;
+      jwtToken.set(token);
 
       setTimeout(() => {
         setLoading(false);
-        window.location.href = "/dashboard";
+        // window.location.href = "/dashboard";
       }, 1000);
     } catch (error) {
       if (error.name === 'HTTPError') {
@@ -79,6 +89,14 @@ export default function LoginComponent() {
           placeholder="Password"
           type="password"
         />
+        <HCaptcha
+          sitekey="3ad9d04e-58ae-4645-a4f3-d223aa0a746c"
+          onLoad={onLoad}
+          onVerify={(token, ekey) => setToken(token)}
+          theme="dark"
+          ref={captchaRef}
+          size="compact"
+        /> 
         <button
           onClick={LoginUser}
           className="text-[#FFE6C7]  p-3 text-xs font-mono border-2 border-black/20 font-bold rounded-xl shadow-lg active:shadow-none active:scale-95 duration-150 transition grid-items-center"

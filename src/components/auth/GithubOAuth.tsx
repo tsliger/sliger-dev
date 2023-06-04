@@ -6,6 +6,7 @@ export default function GithubOAuth() {
   return (
     <a
       href={`https://github.com/login/oauth/authorize?scope=user&client_id=${client_id}&redirect_uri=${redirect_uri}`}
+      target="_blank"
       // onClick={() => {
       //   setData({ ...data, errorMessage: "" });
       // }}
