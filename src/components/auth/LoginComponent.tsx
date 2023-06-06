@@ -33,11 +33,13 @@ export default function LoginComponent() {
     }, 300);
   }
 
+  const url = import.meta.env.PUBLIC_BACKEND_URL
+
   const LoginUser = async (e) => {
     setLoading(true);
 
     try {
-      const data: any = await ky.post('http://localhost:1337/api/logins', {json: {"data": {...formData, "captcha": verifyToken} }}).json();
+      const data: any = await ky.post(`${url}/api/logins`, {json: {"data": {...formData, "captcha": verifyToken} }}).json();
       const token = data.data.attributes.access_token;
       jwtToken.set(token);
 

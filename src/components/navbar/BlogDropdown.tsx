@@ -14,6 +14,8 @@ export default function BlogDropdown({ setBlogOpen, blogOpen }) {
     }
   }, [blogOpen])
 
+  const url = import.meta.env.PUBLIC_BACKEND_URL
+
   useEffect(() => {
     async function click(event) {
       if (dropRef.current.contains(event.target)) {
@@ -43,7 +45,7 @@ export default function BlogDropdown({ setBlogOpen, blogOpen }) {
   const fetchData = async() => {
     setLoading(true)
     try {
-      const res: any = await ky.get('http://localhost:1337/api/posts?pagination[page]=1&pagination[pageSize]=2&populate=*').json();
+      const res: any = await ky.get(`${url}/api/posts?pagination[page]=1&pagination[pageSize]=2&populate=*`).json();
       setPosts(res.data)
       setTimeout(() => {
         setLoading(false)

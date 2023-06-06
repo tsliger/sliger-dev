@@ -4,9 +4,10 @@ import ky from 'ky'
 
 export default function SkillTreeProvider() {
   const [data, setData] = useState(null)
+  const url = import.meta.env.PUBLIC_BACKEND_URL
 
   const getData = async () => {
-    const data: any = await ky.get('http://localhost:1337/api/Skill-categories?populate=*').json()
+    const data: any = await ky.get(`${url}/api/Skill-categories?populate=*`).json()
 
     if (data) {
       setData(data.data)

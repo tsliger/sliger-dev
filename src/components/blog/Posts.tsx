@@ -62,12 +62,14 @@ export default function Posts() {
     }
   }, [currentPage]);
 
+  const url = import.meta.env.PUBLIC_BACKEND_URL
+
   const getPosts = async () => {
     setLoading(true);
     try {
       const res: any = await ky
         .get(
-          `http://localhost:1337/api/posts?populate=*&pagination[page]=${currentPage}`
+          `${url}/api/posts?populate=*&pagination[page]=${currentPage}`
         )
         .json();
       setPosts(res.data as []);

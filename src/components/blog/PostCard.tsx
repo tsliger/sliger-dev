@@ -62,7 +62,7 @@ export default function PostCard({
   const changeLoad = async() => {
     setTimeout(() => {
       setLoad(true)
-    }, 200)
+    }, 100)
   }
 
   return (
@@ -108,7 +108,7 @@ export default function PostCard({
             } transition duration-[600ms] ease-in-out w-full`}
             ref={ref}
             draggable={false}
-            load-src={"http://localhost:1337" + image.attributes.url}
+            load-src={image.attributes.url}
             onLoad={changeLoad}
             alt=""
           />

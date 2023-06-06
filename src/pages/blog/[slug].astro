@@ -6,8 +6,9 @@ import PublishedDate from "../../components/blog/PublishedDate";
 import ScrollBar from "../../components/ScrollBar"
 
 const { slug } = Astro.params;
+const url = import.meta.env.PUBLIC_BACKEND_URL
 
-const data = await fetch("http://localhost:1337/api/posts?populate=*").then(
+const data = await fetch(`${url}/api/posts?populate=*`).then(
   (response) => response.json()
 );
 
@@ -30,7 +31,7 @@ const imgUrl = post.attributes.featured_image.data ? post.attributes.featured_im
           draggable={false}
           class="select-none w-full opacity-30 z-[-1]"
           src={
-            "http://localhost:1337" + imgUrl
+            imgUrl
           }
         />
       </div>
