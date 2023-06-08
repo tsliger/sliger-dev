@@ -6,11 +6,11 @@ let desc = "Discover my recent blog posts that delve into various topics, includ
 
 <Layout title="Blog | sliger.dev" description={desc} type="page">
     <div class="h-32"/>
-    <div class="flex lg:flex-row items-center lg:items-start flex-col mx-16">
+    <div class="flex lg:flex-row items-center lg:items-start flex-col lg:mx-16">
         <h1 class="grid place-items-center pb-12 text-4xl font-semibold font-serif text-white tracking-wider">Blog Posts</h1>
         <div class="flex-grow"/>
     </div>
-    <div class="w-full relative pb-24 min-h-[800px]">
+    <div class="w-full relative pb-24 min-h-[800px] mx-4 lg:mx-16">
 	    <Posts client:load/>
     </div>
 </Layout>

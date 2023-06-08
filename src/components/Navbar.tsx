@@ -40,7 +40,8 @@ export default function Navbar() {
             className="invert select-none drop-shadow-xl "
             src="/sliger-warped-logo.svg"
             alt=""
-          />
+          >
+          </img>
         </a>
       </div>
       <div className="w-full" />

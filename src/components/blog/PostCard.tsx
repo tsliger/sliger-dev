@@ -43,7 +43,9 @@ export default function PostCard({
       const source = entry.target.getAttribute('load-src');
 
       target.src = source;
-    } 
+    }  else {
+      setHover(false)
+    }
   }, [inView])
 
 

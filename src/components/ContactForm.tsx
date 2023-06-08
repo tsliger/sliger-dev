@@ -32,8 +32,10 @@ export default function ContactForm() {
     captchaRef.current.execute();
   };
 
+  const url = import.meta.env.PUBLIC_BACKEND_URL
+
   const postData = async (values) => {
-    ky.post("http://localhost:1337/api/contacts", { json: { data: values } });
+    ky.post(`${url}/api/contacts`, { json: { data: values } });
   };
 
   return (
@@ -68,7 +70,7 @@ export default function ContactForm() {
       }) => (
         <form
           onSubmit={handleSubmit}
-          className="w-96 lg:w-[600px] space-y-6 -translate-y-6"
+          className="w-full md:w-96 lg:w-[600px] space-y-6 -translate-y-6"
         >
           <p className="h-12 flex items-end text-red-500 w-full">
             {(errors && errors.first_name) ||

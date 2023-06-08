@@ -8,7 +8,7 @@ export default function Index() {
   const isInView = useInView(paragraphRef);
   return (
     <div className="min-h-screen relative">
-      <div className="flex justify-center min-h-screen  h-[1000px] lg:h-[1100px] pb-28 md:pb-0 pt-20 select-none overflow-hidden">
+      <div className="flex justify-center min-h-screen -translate-y-24 lg:translate-y-0  h-[1000px] lg:h-[1100px] pb-28 md:pb-0 pt-20 select-none overflow-hidden">
         <div className="w-full flex justify-center relative">
           <div className="overflow-hidden absolute top-12 lg:top-auto">
             <Parallax offset={200}>
@@ -21,7 +21,7 @@ export default function Index() {
                   className="origin-center"
                   draggable="false"
                   src="/homepage-img.webp"
-                />
+                ></motion.img>
               </div>
             </Parallax>
           </div>
