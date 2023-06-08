@@ -7,7 +7,15 @@ import partytown from '@astrojs/partytown';
 // https://astro.build/config
 export default defineConfig({
   site: "https://sliger.dev",
-  integrations: [react(), tailwind(), partytown()],
+  integrations: [
+    react(), 
+    tailwind(), 
+    partytown({
+      config: {
+        forward: ["dataLayer.push"],
+      },
+    }),
+  ],
   output: "server",
   adapter: netlify()
 });
