@@ -15,6 +15,7 @@ export default function Index() {
               <div className="w-[700px] h-[700px] lg:w-[900px] lg:h-[900px]">
                 <motion.img
                   animate={{ opacity: 0.3 }}
+                  alt={''}
                   initial={{ opacity: 0 }}
                   transition={{ duration: 1, delay: 0.25 }}
                   className="origin-center"

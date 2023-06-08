@@ -1,4 +1,5 @@
 ---
+import { SEO } from "astro-seo";
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import DrawerButton from '../components/buttons/DrawerButton';
@@ -6,20 +7,62 @@ import "../styles/global.css"
 import '../styles/navbarStyles.css';
 
 export interface Props {
-	title: string;
+	title?: string;
+	description?: string;
+	imageURL?: string;
+	type?: string;
 }
 
-const { title } = Astro.props;
+const placeholder_img = "https://i.imgur.com/4za3Zha.png"
+const { title, description, imageURL, type="page" } = Astro.props;
+
+let imgURL = imageURL ? imageURL : placeholder_img
+const MEASURE_ID = import.meta.env.PUBLIC_GA_MEASUREMENT_ID
 ---
 
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<SEO
+			title={title}
+			description={description}
+			openGraph={{
+				basic: {
+					title: title,
+					type: type,
+					image: imgURL,
+				}
+			}}
+			extend={{
+				// extending the default link tags
+				link: [{ rel: "icon", href: "/favicon.ico" }],
+				// extending the default meta tags
+				meta: [
+				{
+					name: "twitter:image",
+					content: imgURL,
+				},
+				{ name: "twitter:title", content: title },
+				{ name: "twitter:description", content: description },
+				],
+			}}
+		/>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+		<script
+			type="text/partytown"
+			src=`https://www.googletagmanager.com/gtag/js?id=${MEASURE_ID}`
+		></script>
+		<script type="text/partytown">
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag("js", new Date());
+			gtag("config", MEASURE_ID);
+		</script>
 	</head>
 	<body>
 		<DrawerButton client:only/>

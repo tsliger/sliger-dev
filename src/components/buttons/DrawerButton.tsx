@@ -29,7 +29,7 @@ export default function DrawerButton() {
   return (
     <>
       <div className="absolute z-[500] right-0 top-0 h-20 aspect-square flex items-center justify-end pr-8 lg:pr-16 lg:hidden ">
-          <motion.button onClick={changeState} className="text-[#FFE6C7] z-[500] p-3 text-xs font-mono border-2 border-black/20 font-bold rounded-xl shadow-lg active:shadow-none active:scale-95 duration-150 transition grid-items-center">
+          <motion.button aria-label="Drawer Open" onClick={changeState} className="text-[#FFE6C7] z-[500] p-3 text-xs font-mono border-2 border-black/20 font-bold rounded-xl shadow-lg active:shadow-none active:scale-95 duration-150 transition grid-items-center">
               {!isDrawerOpen && <HiMenuAlt4 size={20}/> }
               {isDrawerOpen && <HiX size={20}/> }
           </motion.button>
