@@ -25,6 +25,7 @@ const MEASURE_ID = import.meta.env.PUBLIC_GA_MEASUREMENT_ID
 	<head>
 		<SEO
 			title={title}
+			charset="UTF-8"
 			description={description}
 			openGraph={{
 				basic: {
@@ -47,21 +48,17 @@ const MEASURE_ID = import.meta.env.PUBLIC_GA_MEASUREMENT_ID
 				],
 			}}
 		/>
-		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<script
-			type="text/partytown"
-			src=`https://www.googletagmanager.com/gtag/js?id=${MEASURE_ID}`
-		></script>
+		<!-- Google tag (gtag.js) -->
+		<script type="text/partytown" async src="https://www.googletagmanager.com/gtag/js?id=G-WFYXNHQCJ7"></script>
 		<script type="text/partytown">
 			window.dataLayer = window.dataLayer || [];
-			function gtag() {
-				dataLayer.push(arguments);
-			}
-			gtag("js", new Date());
-			gtag("config", MEASURE_ID);
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'G-WFYXNHQCJ7');
 		</script>
 	</head>
 	<body>
