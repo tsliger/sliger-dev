@@ -11,7 +11,7 @@ const data = await fetch(`${url}/api/post/${slug}?populate=*`).then(
   (response) => response.json()
 );
 
-if (!data) return Astro.redirect("/404");
+if (!data.data) return Astro.redirect("/404");
 
 const post = data.data;
 const imgUrl = post.attributes.featured_image ? post.attributes.featured_image.data.attributes.url : null;

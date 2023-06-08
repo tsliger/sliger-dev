@@ -67,3 +67,23 @@ code {
 .button-style {
     @apply text-[#FFE6C7] p-3 text-xs font-mono border-2 border-black/20 font-bold rounded-xl shadow-lg active:shadow-none active:scale-95 duration-150 transition grid place-items-center  
 }
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(#2b2926) var(#403d39);
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 15px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #2b2926;
+    border-radius: 2px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #403d39;
+    border: 2px solid rgba(0, 0, 0, 0.164);
+}

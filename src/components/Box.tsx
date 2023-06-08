@@ -15,9 +15,6 @@ export function Box({children, className="", id=undefined}) {
     if (isInView) {
       controls.start("visible");
     } 
-    // else {
-    //   controls.start("hidden")
-    // }
   }, [controls, isInView]);
 
   return <motion.div id={id} animate={controls} initial="hidden" variants={squareVariants} ref={ref} className={className} >
