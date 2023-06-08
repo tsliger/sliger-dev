@@ -47,7 +47,7 @@ const School = ({ isActive }) => {
           <img className="h-10 w-10" src={'/education-logo.jpg'} />
         </div>
         <div className="pl-4">
-          <h1 className="text-lg font-bold text-white/70 font-mono">Lake Superior State Unviersity</h1>
+          <h1 className="text-lg font-bold text-white/70 font-mono">Lake Superior State University</h1>
           <p className="text-white/70 font-mono text-sm italic">BS, Computer Science</p>
           <p className="text-white/40 font-mono text-xs italic self-end">Aug 2018 - May 2022 (4 yrs)</p>
         </div>

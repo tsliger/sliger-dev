@@ -7,6 +7,7 @@ export default function ProjectCard({ data }) {
   const imageRef = useRef(undefined)
   const { ref, inView } = useInView({});
 
+
   useEffect(() => {
     if (window.innerWidth <= 800) {
       if (inView) {
@@ -26,6 +27,7 @@ export default function ProjectCard({ data }) {
     }
   }, [inView]);
 
+
   return (
     <div
       ref={ref}
@@ -41,8 +43,7 @@ export default function ProjectCard({ data }) {
           <img
             ref={imageRef}
             load-src={
-              "http://localhost:1337" +
-              data.attributes.banner_image.data.attributes.url
+              data.attributes.banner_image.data[0].attributes.url
             }
             className={`${
               isActive ? "opacity-20 scale-100" : "scale-105 opacity-10 grayscale"

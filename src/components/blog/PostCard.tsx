@@ -62,7 +62,7 @@ export default function PostCard({
   const changeLoad = async() => {
     setTimeout(() => {
       setLoad(true)
-    }, 200)
+    }, 100)
   }
 
   return (
@@ -72,8 +72,8 @@ export default function PostCard({
       onMouseEnter={startHover}
       onMouseLeave={endHover}
       className={`${
-        isHover ? "translate-y-1.5 shadow-lg" : "opacity-70"
-      } z-30 overflow-hidden relative bg-gradient-to-bl my-8 hover:bg-black/10  from-[#FFFFFF]/20 from-10%  to-black/20 select-none text-white ease-in-out transition duration-300 hover:translate-y-1.5 w-[350px] md:w-[400px] h-[325px] rounded-md shadow-xl shadow-black/30 hover:shadow-lg p-4`}
+        isHover ? "shadow-lg" : "opacity-70"
+      } z-30 overflow-hidden relative bg-gradient-to-bl my-8 hover:bg-black/10  from-[#FFFFFF]/20 from-10%  to-black/20 select-none text-white ease-in-out transition duration-300 w-[350px] md:w-[400px] h-[325px] rounded-md shadow-xl shadow-black/30 hover:shadow-lg p-4`}
     >
       {$token && (
         <>
@@ -108,7 +108,7 @@ export default function PostCard({
             } transition duration-[600ms] ease-in-out w-full`}
             ref={ref}
             draggable={false}
-            load-src={"http://localhost:1337" + image.attributes.url}
+            load-src={image.attributes.url}
             onLoad={changeLoad}
             alt=""
           />

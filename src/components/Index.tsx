@@ -13,7 +13,7 @@ export default function Index() {
           <div className="overflow-hidden absolute top-12 lg:top-auto" >
             <Parallax offset={200}>
               <div className="w-[700px] h-[700px] lg:w-[900px] lg:h-[900px]">
-                <motion.img animate={{ opacity: 0.3 }} initial={{ opacity: 0 }} transition={{ duration: 1, delay: 0.25 }}  className="origin-center" draggable="false" src="/homepage-img.png" />
+                <motion.img animate={{ opacity: 0.3 }} initial={{ opacity: 0 }} transition={{ duration: 1, delay: 0.25 }}  className="origin-center" draggable="false" src="/homepage-img.webp" />
               </div>
             </Parallax>
           </div>

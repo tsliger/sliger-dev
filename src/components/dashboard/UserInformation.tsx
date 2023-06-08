@@ -8,6 +8,7 @@ export default function UserInformation() {
   const [data, setData] = useState(undefined)
 
   const fetchData = async () => {
+    console.log($token)
     const data: any= await ky.get('http://localhost:1337/api/users/me', {
       headers: {
         'Authorization': `Bearer ${$token}`

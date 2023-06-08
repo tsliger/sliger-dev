@@ -5,9 +5,9 @@ import { jwtToken } from '../../stores/jwtStore';
 
 export default function AuthWrapper({children}) {
   const $token = useStore(jwtToken);
-  const { isExpired } = useJwt($token);
+  // const { isExpired } = useJwt($token);
   
-  if ($token && !isExpired) {
+  if ($token) {
     return (
       <>{children}</>
     )

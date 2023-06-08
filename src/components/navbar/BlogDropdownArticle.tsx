@@ -52,7 +52,7 @@ export default function BlogDropdownArticle({ post=undefined, i, postsLoading })
             </div>
           <div className={`${imageLoaded ? "opacity-20" : "opacity-0"} transition-all duration-300 ease-in  absolute top-0 left-0 w-full h-full overflow-hidden  flex flex-col justify-center  z-[-1] `}>
             {post.attributes.featured_image.data.attributes.formats.thumbnail && 
-              <img ref={ref} className={`${isHovering ? "scale-105" : "grayscale" } delay-75 transition-all duration-[1000ms]`} load-src={"http://localhost:1337" + post.attributes.featured_image.data.attributes.url}/>
+              <img ref={ref} className={`${isHovering ? "scale-105" : "grayscale" } delay-75 transition-all duration-[1000ms]`} load-src={post.attributes.featured_image.data.attributes.url}/>
             }
           </div>
           <div className={`absolute top-0 grayscale left-0 w-full h-full overflow-hidden opacity-20 flex flex-col justify-center  z-[-1] `}>

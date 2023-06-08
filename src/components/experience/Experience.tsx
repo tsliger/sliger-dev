@@ -12,9 +12,11 @@ import ContactForm from "../ContactForm";
 
 export default function Experience() {
   const [projects, setProjects] = useState(undefined);
+
+  const url = import.meta.env.PUBLIC_BACKEND_URL
   
   const fetchProjects = async () => {
-    const data: any = await ky.get('http://localhost:1337/api/projects?populate=*').json();
+    const data: any = await ky.get(`${url}/api/projects?populate=*`).json();
 
     if (data) {
       setProjects(data.data)

@@ -8,6 +8,8 @@ import { jwtToken } from "../../stores/jwtStore";
 export default function PostCreator() {
   const [uploadedFile, setFile] = useState(undefined);
   const $jwtToken = useStore(jwtToken)
+  const url = import.meta.env.PUBLIC_BACKEND_URL
+
   return (
     <div className="w-[600px] mx-auto flex-grow flex flex-col items-center text-white">
         <Formik
@@ -19,7 +21,7 @@ export default function PostCreator() {
               formData.append('files', uploadedFile)
 
               try {
-                var resp: any = await ky.post('http://localhost:1337/api/upload', {body: formData, headers: { Authorization: `Bearer ${$jwtToken}` }}).json();
+                var resp: any = await ky.post(`${url}/api/upload`, {body: formData, headers: { Authorization: `Bearer ${$jwtToken}` }}).json();
               } catch (error) {
                 if (error.name === 'HTTPError') {
                   const errorJson = await error.response.json();
@@ -31,7 +33,7 @@ export default function PostCreator() {
                 const photoId = resp[0].id;
                 // Post the article
                 try {
-                  const res: any = await ky.post('http://localhost:1337/api/posts', {
+                  const res: any = await ky.post(`${url}/api/posts`, {
                     json: {
                       "data": {
                         "title": values.title,
