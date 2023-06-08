@@ -19,7 +19,7 @@ export default function SkillTreeProvider() {
   }, [])
 
   return (
-    <div className="flex flex-col xl:flex-row space-y-4 xl:space-x-8">
+    <div className="flex flex-col xl:flex-row space-y-4 xl:space-y-0 xl:space-x-8">
         {data && data.map((data, i) => {
           return <SkillTree {...{data}} key={i}/>
         })}

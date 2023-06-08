@@ -32,8 +32,8 @@ export default function Footer() {
               draggable={false}
               className="select-none"
               src="/sliger-warped-logo.svg"
-              alt=""
-            />
+              alt="">
+            </img>
           </a>
         </div>
       </div>
