@@ -3,23 +3,18 @@ import Layout from "../../layouts/Layout.astro";
 import Markdown from "../../components/blog/Markdown";
 import ReadingTime from "../../components/blog/ReadingTime";
 import PublishedDate from "../../components/blog/PublishedDate";
-import ScrollBar from "../../components/ScrollBar"
 
 const { slug } = Astro.params;
 const url = import.meta.env.PUBLIC_BACKEND_URL
 
-const data = await fetch(`${url}/api/posts?populate=*`).then(
+const data = await fetch(`${url}/api/post/${slug}?populate=*`).then(
   (response) => response.json()
 );
 
-const page = data.data.find((page) => {
-  return page.attributes.slug === slug
-});
+if (!data) return Astro.redirect("/404");
 
-if (!page) return Astro.redirect("/404");
-
-const post = page;
-const imgUrl = post.attributes.featured_image.data ? post.attributes.featured_image.data.attributes.url : null;
+const post = data.data;
+const imgUrl = post.attributes.featured_image ? post.attributes.featured_image.data.attributes.url : null;
 ---
 
 <Layout title={`${post.attributes.title} | sliger.dev`}>
