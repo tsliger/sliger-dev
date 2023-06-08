@@ -31,8 +31,6 @@ const Parallax = ({ children, offset = 50 }: ParallaxProps): JSX.Element => {
       setClientHeight(window.innerHeight)
     }
     onResize()
-    // window.addEventListener('resize', onResize)
-    // return () => window.removeEventListener('resize', onResize)
   }, [ref])
 
   return (

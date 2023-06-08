@@ -1,21 +1,24 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
+import CategoryPosts from "../../../components/blog/CategoryPosts"
 
 const { category } = Astro.params;
 
-// const data = await fetch("http://localhost:1337/api/posts?populate=*").then(
-//   (response) => response.json()
-// );
 
-// const page = data.data.find((page) => {
-//   return page.attributes.slug === slug
-// });
+const data = await fetch(`http://localhost:1337/api/category/${category}?populate=*`).then(
+  (response) => response.json()
+);
 
-// if (!page) return Astro.redirect("/404");
+if (!data.data) return Astro.redirect("/404");
+
+const attributes = data.data.attributes;
 
 // const post = page;
 ---
 
-<Layout title={`${category} | sliger.dev`}>
-  <div class="h-20"></div>
+<Layout title={`${attributes.name} Posts | sliger.dev`}>
+  <div class="w-[700px] mx-auto min-h-screen">
+    <h1 class="mt-24 w-full grid place-items-center text-3xl font-semibold tracking-wider py-16 font-sans text-white">{attributes.name} Posts</h1>
+    <CategoryPosts posts={attributes.posts.data} client:only />
+  </div>
 </Layout>
