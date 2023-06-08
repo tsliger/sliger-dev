@@ -1,8 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro"
-import Experience from "../components/experience/Experience"
+import ExperienceComponent from "../components/experience/ExperienceComponent"
+let desc = "Feel free to explore my current and past projects, where you can witness my ongoing work as well as my accomplished endeavors. Additionally, I have provided comprehensive details about my relevant professional experience and the diverse range of skills and technologies I have proficiently worked with."
 ---
 
-<Layout title="Experience | sliger.dev">
-    <Experience client:load/>
+<Layout title="Experience | sliger.dev" description={desc} type="page">
+    <ExperienceComponent client:load/>
 </Layout>

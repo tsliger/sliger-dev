@@ -33,6 +33,7 @@ export default function Navbar() {
           draggable={false}
           className="h-full w-full grid place-items-center color-change-image"
           href={"/"}
+          aria-label="Home"
         >
           <img
             draggable={false}

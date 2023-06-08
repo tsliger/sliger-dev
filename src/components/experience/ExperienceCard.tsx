@@ -25,7 +25,7 @@ const Work = ({ isActive }) => {
       <h1 className="font-bold text-lg tracking-wider text-white/70 py-2">Work Experience</h1>
       <div className='flex items-center '>
         <div className={`${isActive ? "opacity-80" : "opacity-50"} transition-all duration-300 ease-in-out rounded-lg overflow-hidden border-[3px] p-2 bg-white shadow-md border-black/10`}>
-          <img className="h-10 w-10" src={'/work-logo.jpg'} />
+          <img className="h-10 w-10 aspect-square" src={'/work-logo.webp'} />
         </div>
           
         <div className="pl-4">
@@ -44,7 +44,7 @@ const School = ({ isActive }) => {
       <h1 className="font-bold text-lg tracking-wider text-white/70 py-2">Education</h1>
       <div className='flex items-center flex-row'>
         <div className={`${isActive ? "opacity-80" : "opacity-50"} bg-white transition-all duration-300 ease-in-out rounded-lg overflow-hidden border-[3px] p-2 shadow-md border-black/10`}>
-          <img className="h-10 w-10" src={'/education-logo.jpg'} />
+          <img className="h-10 w-10 aspect-square" src={'/education-logo.webp'} />
         </div>
         <div className="pl-4">
           <h1 className="text-lg font-bold text-white/70 font-mono">Lake Superior State University</h1>

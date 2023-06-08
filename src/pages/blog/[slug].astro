@@ -17,7 +17,7 @@ const post = data.data;
 const imgUrl = post.attributes.featured_image ? post.attributes.featured_image.data.attributes.url : null;
 ---
 
-<Layout title={`${post.attributes.title} | sliger.dev`}>
+<Layout title={`${post.attributes.title} | sliger.dev`} description={post.attributes.excerpt} imageURL={imgUrl} type="article">
   <div class="h-20"></div>
   <article class="relative">
     <div class="w-full h-52 lg:h-96 relative overflow-hidden">

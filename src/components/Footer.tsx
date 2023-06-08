@@ -10,6 +10,7 @@ export default function Footer() {
               className="w-full h-full grid place-items-center"
               target="_blank"
               href={"https://www.linkedin.com/in/tom-sliger"}
+              aria-label="Linkedin"
             >
               <AiFillLinkedin size={25} />
             </a>
@@ -19,13 +20,14 @@ export default function Footer() {
               className="w-full h-full grid place-items-center"
               target="_blank"
               href={"https://www.github.com/tsliger"}
+              aria-label="Github"
             >
               <AiFillGithub size={25} />
             </a>
           </div>
         </div>
         <div className="w-10 mt-4 mx-auto active:scale-90 transition-all duration-200 ease-in">
-          <a draggable={false} href={"/"}>
+          <a draggable={false} href={"/"} aria-label="Home">
             <img
               draggable={false}
               className="select-none"
