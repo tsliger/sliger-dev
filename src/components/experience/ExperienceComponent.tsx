@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Box } from "../Box";
 import { MdArrowDropDown } from "react-icons/md/index";
 import ky from "ky";
-import ScrollBar from "../ScrollBar";
 import Tilt from "react-parallax-tilt";
 import SkillTreeProvider from "./SkillTreeProvider";
 import Parallax from "../Parallax";
@@ -29,11 +28,10 @@ export default function Experience() {
 
   return (
     <>
-      <ScrollBar />
-      <Box>
-        <div className="min-h-screen relative flex items-center justify-center  overflow-hidden">
+      <Box className="">
+        <div className="min-h-screen relative flex items-center justify-center overflow-hidden">
           <Parallax offset={300}>
-            <div className="min-h-screen flex flex-col justify-center items-center relative space-y-8 lg:space-y-24 ">
+            <div className="min-h-screen flex flex-col pt-32 lg:pt-0 lg:justify-center items-center relative space-y-8 lg:space-y-24 ">
               <div className="h-32 w-full grid place-items-center">
                 <h1 className="text-5xl lg:text-6xl text-white/50 drop-shadow-md font-serif tracking-widest select-none ">
                   Experience
@@ -79,10 +77,10 @@ export default function Experience() {
           </div>
         </div>
       </Box>
-      <div className="main-container overflow-hidden">
+      <div className="main-container overflow-hidden space-y-8">
         <div className="h-12" />
         <div id="projects" />
-        <Box>
+        <Box className="h-[700px]">
           <Parallax offset={300}>
             <div className="min-h-screen flex flex-col items-center justify-center  mx-8 lg:mx-16">
               <p className="self-start lg:translate-x-32 text-2xl lg:text-5xl  font-semibold tracking-widest font-serif text-gray-200 ">
@@ -92,7 +90,7 @@ export default function Experience() {
                 Some things I've worked on
               </p>
 
-              <div className="flex flex-col lg:flex-row justify-center space-y-8 lg:space-y-0 lg:space-x-16">
+              <div className="flex flex-col lg:flex-row justify-center space-y-8 lg:space-y-0 lg:space-x-8 xl:space-x-32">
                 {projects &&
                   projects.map((data, i) => {
                     return (
@@ -105,7 +103,7 @@ export default function Experience() {
             </div>
           </Parallax>
         </Box>
-        <Box id="skills">
+        <Box id="skills" className="h-[700px]">
           <Parallax offset={300}>
             <div className="min-h-screen flex flex-col justify-center items-center mx-8 lg:mx-16">
               <p className="self-start lg:translate-x-32 text-2xl lg:text-5xl  font-semibold tracking-widest font-serif text-gray-200">
@@ -120,7 +118,7 @@ export default function Experience() {
             </div>
           </Parallax>
         </Box>
-        <Box id="contact">
+        <Box id="contact" className="h-[700px]">
           <Parallax offset={300}>
             <div className="min-h-screen flex flex-col items-center  mx-8 lg:mx-16">
               <p className="self-start lg:translate-x-32 text-2xl lg:text-5xl  font-semibold tracking-widest font-serif text-gray-200">
@@ -133,6 +131,7 @@ export default function Experience() {
             </div>
           </Parallax>
         </Box>
+        <div className="h-64" />
       </div>
     </>
   );
