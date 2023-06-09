@@ -64,7 +64,7 @@ export default function PostCard({
   const changeLoad = async() => {
     setTimeout(() => {
       setLoad(true)
-    }, 100)
+    }, 200)
   }
 
   return (

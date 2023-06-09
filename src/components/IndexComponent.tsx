@@ -11,7 +11,7 @@ export default function Index() {
       <div className="flex justify-center min-h-screen -translate-y-24 lg:translate-y-0  h-[1000px] lg:h-[1100px] pb-28 md:pb-0 pt-20 select-none overflow-hidden">
         <div className="w-full flex justify-center relative">
           <div className="overflow-hidden absolute top-12 lg:top-auto">
-            <Parallax offset={200}>
+            <Parallax offset={150}>
               <div className="w-[700px] h-[700px] lg:w-[900px] lg:h-[900px]">
                 <motion.img
                   animate={{ opacity: 0.3 }}
@@ -25,20 +25,20 @@ export default function Index() {
               </div>
             </Parallax>
           </div>
-          <div className="absolute -translate-y-40 lg:-translate-y-32">
-            <Parallax offset={650}>
+          <div className="absolute top-[20%]">
+            <Parallax offset={150}>
               <motion.h1
                 animate={{ opacity: 1, y: 0 }}
-                initial={{ opacity: 0, y: -20 }}
-                transition={{ duration: 1, delay: 0.4 }}
+                initial={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
                 className="text-lg lg:text-2xl font-bold mb-6 font-mono text-[#FF6000] mx-12 md:mx-0  bg-black/10 w-48 rounded-md px-4 py-2 backdrop-blur-sm shadow-xl"
               >
                 Hi, I'm Tom
               </motion.h1>
               <motion.p
-                animate={{ opacity: 1, y: 0 }}
-                initial={{ opacity: 0, y: 20 }}
-                transition={{ duration: 1.5, delay: 0.75 }}
+                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, x: -15 }}
+                transition={{ duration: 1, delay: 1 }}
                 ref={paragraphRef}
                 className="font-thin tarcking-widest font-serif mx-12 md:mx-0 md:w-[600px] lg:w-[700px] text-white leading-6 md:leading-10 z-50 text-sm md:text-base lg:text-xl "
               >

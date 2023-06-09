@@ -2,7 +2,7 @@ import { useRef, useEffect } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
 
 const squareVariants = {
-  visible: { opacity: 1, scale: 1, transition: { duration: 1, delay: 0.25 } },
+  visible: { opacity: 1, scale: 1, transition: { duration: 1.2, delay: 0.5 } },
   hidden: { opacity: 0, transition: { duration: 0.25 }}
 };
 

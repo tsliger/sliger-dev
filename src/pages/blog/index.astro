@@ -1,16 +1,21 @@
 ---
-import Layout from "../../layouts/Layout.astro"
-import Posts from "../../components/blog/Posts"
-let desc = "Discover my recent blog posts that delve into various topics, including innovative technologies and practical implementations of software/code. Explore and stay informed!"
+import Layout from "../../layouts/Layout.astro";
+import Posts from "../../components/blog/Posts";
+let desc =
+  "Discover my recent blog posts that delve into various topics, including innovative technologies and practical implementations of software/code. Explore and stay informed!";
 ---
 
 <Layout title="Blog | sliger.dev" description={desc} type="page">
-    <div class="h-32"/>
-    <div class="flex lg:flex-row items-center lg:items-start flex-col lg:mx-16">
-        <h1 class="grid place-items-center pb-12 text-4xl font-semibold font-serif text-white tracking-wider">Blog Posts</h1>
-        <div class="flex-grow"/>
-    </div>
-    <div class="w-full relative pb-24 min-h-[800px] mx-4 lg:mx-16">
-	    <Posts client:load/>
-    </div>
+  <div class="h-32"></div>
+  <div class="flex lg:flex-row items-center lg:items-start flex-col lg:mx-16">
+    <h1
+      class="grid place-items-center pb-12 text-4xl font-semibold font-serif text-white tracking-wider"
+    >
+      Blog Posts
+    </h1>
+    <div class="flex-grow"></div>
+  </div>
+  <div class="w-full relative pb-24 min-h-[800px] px-4 lg:px-16">
+    <Posts client:load />
+  </div>
 </Layout>

@@ -49,12 +49,12 @@ export default function BlogDropdown({ setBlogOpen, blogOpen }) {
       setPosts(res.data)
       setTimeout(() => {
         setLoading(false)
-      }, 600)
+      }, 200)
     } catch (error) {
       if (error.name === 'HTTPError') {
         setTimeout(() => {
           setLoading(false)
-        }, 600)
+        }, 200)
       }
     }
   }
