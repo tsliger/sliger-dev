@@ -37,6 +37,7 @@ export default function Posts() {
   const [error, setError] = useState(null);
   const [metadata, setMeta] = useState(null);
   const [currentPage, setPage] = useState(1);
+  const url = import.meta.env.PUBLIC_BACKEND_URL
 
   function handlePageClick(e: any, val: any) {
     setPage(val);
@@ -62,7 +63,6 @@ export default function Posts() {
     }
   }, [currentPage]);
 
-  const url = import.meta.env.PUBLIC_BACKEND_URL
 
   const getPosts = async () => {
     setLoading(true);
