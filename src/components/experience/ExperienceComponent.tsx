@@ -63,14 +63,14 @@ export default function Experience() {
               </div>
             </div>
           </Parallax>
-          <div className="absolute bottom-0">
+          <div className="absolute -bottom-12">
             <Parallax offset={-80}>
               <a href={"#projects"} aria-label="Projects">
                 <div
                   aria-label="Scroll Down"
                   className="text-[#FFE6C7] z-[99] bottom-8 p-2 text-xs font-mono border-2 hover:animate-none   border-black/20 font-bold rounded-full animate-bounce shadow-lg active:shadow-none active:scale-95 duration-150 transition grid-items-center"
                 >
-                  <MdArrowDropDown size={25} />
+                  <MdArrowDropDown size={22} />
                 </div>
               </a>
             </Parallax>
@@ -103,7 +103,7 @@ export default function Experience() {
             </div>
           </Parallax>
         </Box>
-        <Box id="skills" className="h-[700px]">
+        <Box id="skills" className="lg:h-[700px]">
           <Parallax offset={300}>
             <div className="min-h-screen flex flex-col justify-center items-center mx-8 lg:mx-16">
               <p className="self-start lg:translate-x-32 text-2xl lg:text-5xl  font-semibold tracking-widest font-serif text-gray-200">
