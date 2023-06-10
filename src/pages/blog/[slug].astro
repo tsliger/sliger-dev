@@ -9,7 +9,7 @@ import ContentProvider from "../../components/ContentProvider"
 const { slug } = Astro.params;
 const url = import.meta.env.PUBLIC_BACKEND_URL
 
-const data = await fetch(`http://localhost:1337/api/post/${slug}?populate=deep`).then(
+const data = await fetch(`${url}/api/post/${slug}?populate=deep`).then(
   (response) => response.json()
 );
 

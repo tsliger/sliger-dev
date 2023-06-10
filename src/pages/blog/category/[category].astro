@@ -4,16 +4,15 @@ import CategoryPosts from "../../../components/blog/CategoryPosts"
 
 const { category } = Astro.params;
 
+const url = import.meta.env.PUBLIC_BACKEND_URL
 
-const data = await fetch(`http://localhost:1337/api/category/${category}?populate=*`).then(
+const data = await fetch(`${url}/api/category/${category}?populate=*`).then(
   (response) => response.json()
 );
 
 if (!data.data) return Astro.redirect("/404");
 
 const attributes = data.data.attributes;
-
-// const post = page;
 ---
 
 <Layout title={`${attributes.name} Posts | sliger.dev`}>
