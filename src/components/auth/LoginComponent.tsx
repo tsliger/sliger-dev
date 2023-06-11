@@ -30,7 +30,7 @@ export default function LoginComponent() {
   if ($jwtToken && !isExpired) {
     setTimeout(() => {
       return (window.location.href = "/dashboard");
-    }, 300);
+    }, 100);
   }
 
   const url = import.meta.env.PUBLIC_BACKEND_URL
@@ -45,7 +45,6 @@ export default function LoginComponent() {
 
       setTimeout(() => {
         setLoading(false);
-        // window.location.href = "/dashboard";
       }, 1000);
     } catch (error) {
       if (error.name === 'HTTPError') {
