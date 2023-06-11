@@ -103,7 +103,7 @@ export default function Experience() {
             </div>
           </Parallax>
         </Box>
-        <Box id="skills" className="lg:h-[700px]">
+        <Box id="skills">
           <Parallax offset={300}>
             <div className="min-h-screen flex flex-col justify-center items-center mx-8 lg:mx-16">
               <p className="self-start lg:translate-x-32 text-2xl lg:text-5xl  font-semibold tracking-widest font-serif text-gray-200">

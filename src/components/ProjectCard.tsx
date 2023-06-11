@@ -42,7 +42,7 @@ export default function ProjectCard({ data }) {
       onMouseLeave={() => setActive(false)}
       className="w-[340px] h-[350px] lg:h-[400px] experience-card text-white flex flex-col overflow-hidden"
     >
-      <h1 className="lg:text-2xl font-mono font-semibold  px-4 py-3 z-40 ">
+      <h1 className="lg:text-xl font-mono font-semibold h-20  px-4 py-3 z-40 ">
         {data.attributes.title}
       </h1>
       <div className="h-36 lg:h-42 relative space-y-2 overflow-hidden">
