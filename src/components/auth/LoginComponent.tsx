@@ -5,16 +5,19 @@ import { useStore } from "@nanostores/react";
 import { jwtToken } from "../../stores/jwtStore";
 import { LoadingCircle } from "../utils/Loading";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
+import { Formik } from "formik";
+import { object, string } from "yup";
+
+const loginFormSchema = object({
+  identifier: string().email("Not a valid email").required("Email required"),
+  password: string()
+    .required("Password required"),
+  captcha: string().min(1).required("Captcha not complete"),
+});
 
 export default function LoginComponent() {
-  const [formData, setData] = useState({
-    identifier: undefined,
-    password: undefined,
-  });
   const [loading, setLoading] = useState(false);
-  const [verifyToken, setToken] = useState(null);
   const [error, setError] = useState("");
-  const formRef = useRef(null);
   const $jwtToken = useStore(jwtToken);
   const { isExpired } = useJwt($jwtToken);
   const captchaRef = useRef(null);
@@ -35,11 +38,11 @@ export default function LoginComponent() {
 
   const url = import.meta.env.PUBLIC_BACKEND_URL
 
-  const LoginUser = async (e) => {
+  const LoginUser = async (values) => {
     setLoading(true);
 
     try {
-      const data: any = await ky.post(`${url}/api/logins`, {json: {"data": {...formData, "captcha": verifyToken} }}).json();
+      const data: any = await ky.post(`${url}/api/logins`, {json: {"data": {...values} }}).json();
       const token = data.data.attributes.access_token;
       jwtToken.set(token);
 
@@ -56,14 +59,40 @@ export default function LoginComponent() {
       }
     }
 
-    formRef.current.reset();
   };
 
   return (
     <div className="bg-gradient-to-bl grid place-items-center shadow-xl hover:shadow-lg duration-300 transition from-[#FFFFFF]/20 from-10%  to-black/20 rounded-lg w-96 py-8 relative">
+      <Formik
+      initialValues={{
+        identifier: "",
+        password: "",
+        captcha: "",
+      }}
+      validationSchema={loginFormSchema}
+      onSubmit={(values, { setSubmitting, resetForm }) => {
+        setTimeout(() => {
+          // postData(values);
+          LoginUser(values)
+          setSubmitting(false);
+          resetForm();
+        }, 400);
+      }}
+    >
+      {({
+        values,
+        errors,
+        touched,
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        isSubmitting,
+        isValid,
+        initialStatus,
+        setFieldValue,
+      }) => (
       <form
-        ref={formRef}
-        onSubmit={(event) => event.preventDefault()}
+        onSubmit={handleSubmit}
         className="space-y-8 flex items-center flex-col"
       >
         <img
@@ -76,28 +105,30 @@ export default function LoginComponent() {
         <div className="h-1" />
         <input
           type="email"
-          onChange={(e) =>
-            setData({ ...formData, identifier: e.currentTarget.value })
-          }
+          onChange={handleChange}
+          onBlur={handleBlur}
           className="input-field"
+          name="identifier"
           placeholder="Email"
         />
         <input
-          onChange={(e) =>
-            setData({ ...formData, password: e.currentTarget.value })
-          }
+          onChange={handleChange}
+          onBlur={handleBlur}
           className="input-field"
+          name="password"
           placeholder="Password"
           type="password"
         />
-        <HCaptcha
-          sitekey="3ad9d04e-58ae-4645-a4f3-d223aa0a746c"
-          onLoad={onLoad}
-          onVerify={(token, ekey) => setToken(token)}
-          theme="dark"
-          ref={captchaRef}
-          size="compact"
-        /> 
+        {touched.password && (
+          <HCaptcha
+            sitekey="3ad9d04e-58ae-4645-a4f3-d223aa0a746c"
+            onLoad={onLoad}
+            onVerify={(token, ekey) => setFieldValue("captcha", token)}
+            theme="dark"
+            ref={captchaRef}
+            size="compact"
+          /> 
+        )}
         <button
           onClick={LoginUser}
           className="text-[#FFE6C7]  p-3 text-xs font-mono border-2 border-black/20 font-bold rounded-xl shadow-lg active:shadow-none active:scale-95 duration-150 transition grid-items-center"
@@ -106,6 +137,8 @@ export default function LoginComponent() {
           {!loading && <p>Log in</p>}
         </button>
       </form>
+      )}
+      </Formik>
     </div>
   );
 }

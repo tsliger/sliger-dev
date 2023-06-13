@@ -9,7 +9,9 @@ export default function UserInformation() {
 
   const fetchData = async () => {
     console.log($token)
-    const data: any= await ky.get('http://localhost:1337/api/users/me', {
+
+    const url = import.meta.env.PUBLIC_BACKEND_URL
+    const data: any= await ky.get(`${url}/api/users/me`, {
       headers: {
         'Authorization': `Bearer ${$token}`
       }

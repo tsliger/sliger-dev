@@ -119,7 +119,7 @@ export default function ContactForm() {
           />
           <div className="h-24 flex">
             <div className="w-1/2 flex items-end">
-              {!!touched.description && !errors.description && (
+              {touched.description && !errors.description && (
                 <HCaptcha
                   sitekey="3ad9d04e-58ae-4645-a4f3-d223aa0a746c"
                   onLoad={onLoad}
