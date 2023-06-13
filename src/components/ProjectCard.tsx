@@ -49,6 +49,7 @@ export default function ProjectCard({ data }) {
         <div className="bg-filter">
           <div className={`${imageLoaded ? "opacity-100" : "opacity-0"}`}>
             <img
+              alt=""
               ref={imageRef}
               load-src={
                 data.attributes.banner_image.data[0].attributes.url

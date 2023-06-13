@@ -68,7 +68,7 @@ export default function ContentProvider({ contents }) {
   const [content, setContent] = useState(undefined)
   useEffect(() => {
     var sorted_content = contents.sort(function(a, b) {
-      return a.attributes.order > b.attributes.order ;
+      return a.attributes.order - b.attributes.order ;
     });
 
     setContent(sorted_content)

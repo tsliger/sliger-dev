@@ -30,8 +30,8 @@ export default function Experience() {
     <>
       <Box className="">
         <div className="min-h-screen relative flex items-center justify-center overflow-hidden">
-          <Parallax offset={300}>
-            <div className="min-h-screen flex flex-col pt-32 lg:pt-0 lg:justify-center items-center relative space-y-8 lg:space-y-24 ">
+          <Parallax offset={200}>
+            <div className="min-h-screen flex flex-col pt-40 lg:pt-0 lg:justify-center items-center relative space-y-8 lg:space-y-24 ">
               <div className="h-32 w-full grid place-items-center">
                 <h1 className="text-5xl lg:text-6xl text-white/50 drop-shadow-md font-serif tracking-widest select-none ">
                   Experience
@@ -63,11 +63,10 @@ export default function Experience() {
               </div>
             </div>
           </Parallax>
-          <div className="absolute -bottom-12">
+          <div className="absolute -bottom-12 invisible md:visible">
             <Parallax offset={-80}>
-              <a href={"#projects"} aria-label="Projects">
+              <a aria-label="Scroll Down" href={"#projects"}>
                 <div
-                  aria-label="Scroll Down"
                   className="text-[#FFE6C7] z-[99] bottom-8 p-2 text-xs font-mono border-2 hover:animate-none   border-black/20 font-bold rounded-full animate-bounce shadow-lg active:shadow-none active:scale-95 duration-150 transition grid-items-center"
                 >
                   <MdArrowDropDown size={22} />
@@ -81,7 +80,7 @@ export default function Experience() {
         <div className="h-12" />
         <div id="projects" />
         <Box className="h-[700px]">
-          <Parallax offset={300}>
+          <Parallax offset={200}>
             <div className="min-h-screen flex flex-col items-center justify-center  mx-8 lg:mx-16">
               <p className="self-start lg:translate-x-32 text-2xl lg:text-5xl  font-semibold tracking-widest font-serif text-gray-200 ">
                 Projects
@@ -104,7 +103,7 @@ export default function Experience() {
           </Parallax>
         </Box>
         <Box id="skills">
-          <Parallax offset={300}>
+          <Parallax offset={200}>
             <div className="min-h-screen flex flex-col justify-center items-center mx-8 lg:mx-16">
               <p className="self-start lg:translate-x-32 text-2xl lg:text-5xl  font-semibold tracking-widest font-serif text-gray-200">
                 Skills
@@ -119,7 +118,7 @@ export default function Experience() {
           </Parallax>
         </Box>
         <Box id="contact" className="h-[700px]">
-          <Parallax offset={300}>
+          <Parallax offset={200}>
             <div className="min-h-screen flex flex-col items-center  mx-8 lg:mx-16">
               <p className="self-start lg:translate-x-32 text-2xl lg:text-5xl  font-semibold tracking-widest font-serif text-gray-200">
                 Contact
