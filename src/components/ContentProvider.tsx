@@ -7,14 +7,14 @@ import { RiLoader5Line } from "react-icons/ri"
 
 const TextContent = ({ text }) => {
   return (
-    <ReactMarkdown className="space-y-10 leading-8 text-justify font-sans indent-8 mb-24">{text}</ReactMarkdown>
+    <ReactMarkdown className="space-y-10 leading-8 text-justify font-sans indent-8 py-4 lg:py-8">{text}</ReactMarkdown>
   )
 }
 
 const HeaderContent = ({ text }) => {
   return (
     <div className="relative py-4 rounded-lg overflow-hidden">
-      <h1 className="font-sans text-4xl font-bold relative">
+      <h1 className="font-sans text-2xl lg:text-4xl font-bold relative">
         { text }
       </h1>
     </div>
@@ -48,7 +48,7 @@ const ImageContent = ({ image }) => {
   }
 
   return (
-    <div ref={ref} className="my-12 overflow-hiddden flex items-center justify-center mb-24" >
+    <div ref={ref} className="my-4 lg:my-12 overflow-hiddden flex items-center justify-center " >
       <div className={`${isLoaded ? "hidden" : "visible"} rounded-lg relative overflow-hidden w-full animate-pulse max-w-full`} style={{ aspectRatio: image.data.attributes.width / image.data.attributes.height, width: image.data.attributes.width}}>
         <BlurhashCanvas className="w-full shadow-lg shadow-black/20 h-full  opacity-30 border-[3px] border-black/20" hash={blurHash}/>
         <div className="absolute w-full h-full grid place-items-center left-0 top-0">
@@ -65,18 +65,9 @@ const ImageContent = ({ image }) => {
 }
 
 export default function ContentProvider({ contents }) {
-  const [content, setContent] = useState(undefined)
-  useEffect(() => {
-    var sorted_content = contents.sort(function(a, b) {
-      return a.attributes.order - b.attributes.order ;
-    });
-
-    setContent(sorted_content)
-  }, [])
-
   return (
     <div>
-      {content && content.map((data, i) => {
+      {contents && contents.map((data, i) => {
         return (
           <div key={data.id}>
             {data && data.attributes && data.attributes.type === "text"  && (

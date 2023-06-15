@@ -3,7 +3,7 @@
 }
 
 .nav-child-button {
-    @apply hover:shadow-lg cursor-pointer flex items-center active:shadow-none hover:text-[#FF6000] hover:bg-black/[5%] active:border-transparent border-transparent transition-all duration-150  px-6 py-3 rounded-xl border-[1.5px] hover:border-black/20;
+    @apply hover:shadow-lg cursor-pointer flex items-center active:shadow-none text-sm hover:text-[#FF6000] hover:bg-black/[5%] active:border-transparent border-transparent transition-all duration-150  px-6 py-3 rounded-xl border-[1.5px] hover:border-black/20;
 }
 
 .nav-child-active {

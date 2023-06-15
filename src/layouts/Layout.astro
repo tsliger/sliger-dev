@@ -62,11 +62,11 @@ const MEASURE_ID = import.meta.env.PUBLIC_GA_MEASUREMENT_ID
 		</script>
 	</head>
 	<body>
-		<DrawerButton client:only/>
-		<Navbar client:load/>
 		<div class="min-h-screen flex flex-col">
+			<DrawerButton client:only/>
+			<Navbar client:load/>
 			<slot />
+			<Footer />
 		</div>
-		<Footer />
 	</body>
 </html>

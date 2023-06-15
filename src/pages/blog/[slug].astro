@@ -17,7 +17,10 @@ if (!data.data) return Astro.redirect("/404");
 
 const post = data.data;
 const imgUrl = post.attributes.featured_image ? post.attributes.featured_image.data.attributes.url : null;
-const contents = post.attributes.contents.data
+const content_data = post.attributes.contents.data
+var contents = content_data.sort(function(a, b) {
+  return a.attributes.order - b.attributes.order ;
+});
 ---
 
 <Layout title={`${post.attributes.title} | sliger.dev`} description={post.attributes.excerpt} imageURL={imgUrl} type="article">
@@ -38,18 +41,18 @@ const contents = post.attributes.contents.data
 
       <div class="absolute bottom-10 w-full">
         <div
-          class="text-white mx-8 z-50 lg:mx-auto lg:w-[900px] drop-shadow-md"
+          class="text-white mx-8 z-50 lg:mx-auto  w-full lg:w-[800px] xl:w-[1200px]  drop-shadow-md"
         >
-          <h1 class="font-bold text-2xl lg:text-5xl pb-4">
+          <h1 class="font-bold text-3xl lg:text-5xl pb-1 lg:pb-4">
             {post.attributes.title}
           </h1>
           <h3
-            class="mb-2 underline  underline-offset-3 text-[#FF6000] font-thin text-sm lg:text-lg font-mono select-none cursor-pointer"
+            class="mb-1 underline  underline-offset-3 text-[#FF6000] font-thin text-sm lg:text-lg font-mono select-none cursor-pointer"
           >
             <a href={"/blog/category/" + post.attributes.categories.data[0].attributes.slug}>{post.attributes.categories.data[0].attributes.name}</a>
           </h3>
           <div class="flex items-center justify-between">
-            <h2 class="font-thin text-lg font-mono cursor-pointer">
+            <h2 class="font-thin lg:text-lg font-mono cursor-pointer">
               {post.attributes.author.data.attributes.name}
             </h2>
             <!-- <ReadingTime content={post} /> -->
@@ -57,7 +60,7 @@ const contents = post.attributes.contents.data
         </div>
       </div>
     </div>
-    <main class="text-white mx-8 z-50 lg:mx-auto lg:w-[900px] pt-8">
+    <main class="text-white  z-50 w-full lg:w-[800px] xl:w-[1200px]  mx-auto pt-8">
       <PublishedDate date={post.attributes.publishedAt} text={"Published"} />
       <div class="mb-48 mt-8 leading-10 font-serif">
         <!-- <Markdown client:load content={post} /> -->
