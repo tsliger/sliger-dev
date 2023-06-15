@@ -26,9 +26,9 @@ export default function Navbar() {
     <nav
       className={`${
         !blogOpen ? "overflow-hidden" : ""
-      } bg-[#403D39] select-none h-20 z-[300] snap-start absolute flex items-center px-8 lg:px-16 text-white w-full shadow-sm shadow-[#403D39]`}
+      } bg-[#403D39] select-none h-20 z-[300] snap-start absolute flex items-center  px-8 lg:px-0 w-full lg:w-[800px] xl:w-[1200px] self-center text-white  shadow-sm shadow-[#403D39]`}
     >
-      <div className="h-16 lg:h-full aspect-square duration-[1000ms]">
+      <div className="h-12 lg:h-16 aspect-square duration-[1000ms]">
         <a
           draggable={false}
           className="h-full w-full grid place-items-center color-change-image"
