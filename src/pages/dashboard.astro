@@ -6,11 +6,10 @@ import UserInformation from "../components/dashboard/UserInformation"
 ---
 
 <Layout title="Dashboard | sliger.dev">
-    <div class="h-20"/>
-    <AuthWrapper client:only>
-        <div class="mx-8 z-[500]">
-            <LogoutButton client:load />
+    <div class="w-[1200px] mx-auto min-h-screen pt-20">
+        <AuthWrapper client:only>
             <UserInformation client:load />
-        </div>
-    </AuthWrapper>
+            <LogoutButton client:load />
+        </AuthWrapper>
+    </div>
 </Layout>

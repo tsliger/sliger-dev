@@ -5,9 +5,9 @@ import PostCreator from "../../components/blog/PostCreator"
 ---
 
 <Layout title="New Post | sliger.dev">
-    <div class="h-20"/>
+    <div class="min-h-screen">
     <AuthWrapper client:only>
-        <PostCreator client:load />
+        <PostCreator client:only />
     </AuthWrapper>
-    <div class="h-48"/>
+    </div>
 </Layout>

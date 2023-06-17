@@ -67,10 +67,12 @@ export default function Posts() {
   const getPosts = async () => {
     setLoading(true);
     try {
-      const res: any = await ky
-        .get(
-          `${url}/api/posts?populate=*&pagination[page]=${currentPage}`
-        )
+      const res: any = await ky.get(`${url}/api/posts?populate=*&pagination[page]=${currentPage}`, {
+        retry: {
+          limit: 10,
+        },
+        timeout: 99999
+      })
         .json();
       setPosts(res.data as []);
       setTimeout(() => {

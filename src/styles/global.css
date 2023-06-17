@@ -70,6 +70,10 @@ code {
   --glow-opacity: 0.101;
 }
 
+.container-test {
+  @apply px-8 lg:px-0 w-full mx-auto lg:w-[800px] xl:w-[1200px] self-center
+}
+
 .experience-card::before {
   @apply absolute content-['']  left-0 top-0 z-[-1] w-full h-full rounded-md overflow-hidden transition-all duration-300 ease-in-out;
   background: radial-gradient(
