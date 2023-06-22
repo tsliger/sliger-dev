@@ -40,7 +40,7 @@ export default function ProjectCard({ data }) {
       ref={ref}
       onMouseEnter={() => setActive(true)}
       onMouseLeave={() => setActive(false)}
-      className="w-[340px] h-[350px] lg:h-[400px] experience-card text-white flex flex-col overflow-hidden"
+      className="w-[340px] h-[350px] lg:h-[400px] cursor-pointer experience-card text-white flex flex-col overflow-hidden"
     >
       <h1 className="lg:text-xl font-mono font-semibold h-20  px-4 py-3 z-40 ">
         {data.attributes.title}
@@ -56,7 +56,7 @@ export default function ProjectCard({ data }) {
               }
               onLoad={changeLoad}
               className={`${
-                isActive ? "scale-100 opacity-30" : "scale-105 opacity-10 grayscale"
+                isActive ? "scale-100 opacity-30" : "scale-[1.02] opacity-10 grayscale"
               } transition duration-[1200ms] origin-center ease-in-out object-fit `}
             />
           </div>
