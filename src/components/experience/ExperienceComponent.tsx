@@ -59,9 +59,7 @@ export default function Experience() {
           <div className="absolute -bottom-12 invisible md:visible">
             <Parallax offset={-80}>
               <a aria-label="Scroll Down" href={"#projects"}>
-                <div
-                  className="text-[#FFE6C7] z-[99] bottom-8 p-2 text-xs font-mono border-2 hover:animate-none   border-black/20 font-bold rounded-full animate-bounce shadow-lg active:shadow-none active:scale-95 duration-150 transition grid-items-center"
-                >
+                <div className="text-[#FFE6C7] z-[99] bottom-8 p-2 text-xs font-mono border-2 hover:animate-none   border-black/20 font-bold rounded-full animate-bounce shadow-lg active:shadow-none active:scale-95 duration-150 transition grid-items-center">
                   <MdArrowDropDown size={22} />
                 </div>
               </a>
@@ -83,7 +81,8 @@ export default function Experience() {
               </p>
 
               <div className="flex flex-col lg:flex-row justify-center space-y-8 lg:space-y-0 lg:space-x-8 xl:space-x-32">
-                {data && data.data &&
+                {data &&
+                  data.data &&
                   data.data.map((data, i) => {
                     return (
                       <Tilt key={i} tiltMaxAngleX={5} tiltMaxAngleY={5}>

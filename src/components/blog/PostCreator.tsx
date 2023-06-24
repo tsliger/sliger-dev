@@ -4,26 +4,17 @@ import { Modal } from "@mui/material";
 import { motion } from "framer-motion";
 import { AiOutlineClose } from "react-icons/ai/index";
 import { v4 as uuidv4 } from "uuid";
+import { RiAddFill } from "react-icons/ri/index"
 
-const HeaderCard = () => {
-  return <div>lkasdfjalksdf</div>;
-};
-
+const contentTypes = ["header", "text", "image", "code block"];
 interface Content {
   id: string;
   value: string;
   type: string;
+  meta: Object;
 }
 
-const postContent: Content[] = [
-  // {
-  //   id: 'cato',
-  //   data: {},
-  //   type: "header"
-  // },
-];
-
-const contentTypes = ["header", "text", "image", "code block"];
+const postContent: Content[] = [];
 
 const AddPostButton = ({ content, updateContent }) => {
   const [isOpen, setOpen] = useState(false);
@@ -39,24 +30,56 @@ const AddPostButton = ({ content, updateContent }) => {
 
 const AddPostModal = ({ isOpen, setOpen, content, updateContent }) => {
   const [selected, setSelected] = useState(undefined);
+  const [uploadedFile, setFile] = useState(undefined);
   const headerRef = useRef(undefined);
+  const textRef = useRef(undefined);
+
   const addObject = () => {
     switch (selected) {
       case "header":
         addHeader();
         break;
+
+      case "text":
+        addText();
+        break;
+
+      case "image":
+        addImage();
+        break;
     }
   };
 
+  const addImage = () => {
+    let data = {
+      id: uuidv4(),
+      value: uploadedFile.name,
+      meta: { fileObject: uploadedFile },
+      type: 'image'
+    }
+
+    updateContent([...content, data])
+    setOpen(false)
+  }
+
+  const addText = () => {
+    let data = {
+      id: uuidv4(),
+      value: textRef.current.value,
+      type: 'text'
+    }
+
+    updateContent([...content, data])
+    setOpen(false)
+  }
+
   const addHeader = () => {
-    headerRef.current.value
     let data = {
       id: uuidv4(),
       value:  headerRef.current.value,
       type: "header",
     };
     updateContent([...content, data]);
-    console.log(content);
     setOpen(false);
   };
 
@@ -119,9 +142,20 @@ const AddPostModal = ({ isOpen, setOpen, content, updateContent }) => {
                   animate={{ opacity: 1 }}
                 >
                   <textarea
+                    ref={textRef}
                     placeholder="Type content here..."
                     className="input-field w-full min-h-[300px]"
                   />
+                </motion.div>
+              )}
+              {selected === "image" && (
+                <motion.div
+                  className="my-4 flex-grow"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                >
+                  <label htmlFor="file" className='cursor-pointer text-[#FFE6C7]  p-3 text-xs font-mono border-2 border-black/20 font-bold rounded-xl shadow-lg active:shadow-none my-2 duration-150 transition grid-items-center'>Click To Add Image</label>
+                  <input id="file" type="file" name="file" className="hidden" onChange={(e) => { setFile(e.target.files[0])} }></input>
                 </motion.div>
               )}
             </div>
@@ -139,6 +173,14 @@ const AddPostModal = ({ isOpen, setOpen, content, updateContent }) => {
   );
 };
 
+const FixedSubmitButton = () => {
+  return (
+    <button className="fixed z-[999] button-style h-12 text-lg px-8 bg-[#403d39] space-x-2 right-8 bottom-8 flex items-center">
+      <p>Add</p><RiAddFill />
+    </button>
+  )
+}
+
 export default function PostCreator() {
   const [content, updateContent] = useState(postContent);
 
@@ -154,7 +196,15 @@ export default function PostCreator() {
 
   return (
     <>
-      <div className="container-test pt-32 min-h-screen">
+      <FixedSubmitButton />
+      <div className="container-test pt-32 min-h-screen mb-32">
+        <div className="mb-16 space-y-8 flex flex-col">
+          <h1 className="text-4xl py-4 text-white/70 font-serif text-white font-semibold tracking-wider">
+            Post Details
+          </h1>
+          <input className="input-field w-96" placeholder='Title'/>
+          <textarea className="input-field w-96 min-h-[150px]" placeholder='Excerpt'/>
+        </div>
         <div className="flex items-center justify-between">
           <h1 className="text-4xl py-4 text-white/70 font-serif text-white font-semibold tracking-wider">
             Content
@@ -165,7 +215,7 @@ export default function PostCreator() {
           <Droppable droppableId="characters">
             {(provided) => (
               <ul
-                className="border-t-2 border-b-2 border-black/20  text-white transition-all duration-300 ease-out"
+                className="border-t-2  border-black/20  text-white transition-all duration-300 ease-out"
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
@@ -179,10 +229,10 @@ export default function PostCreator() {
                           {...provided.dragHandleProps}
                           className="py-4 px-2"
                         >
-                          <div className="characters-thumb flex space-x-8 items-center drop-shadow-xl">
+                          <div className="characters-thumb flex items-center drop-shadow-xl">
                             <p>{index + 1}</p>
-                            <p className="capitalize">{type}</p>
-                            <p className="relative left-48">{value}</p>
+                            <p className="capitalize ml-12">{type}</p>
+                            <p className="relative left-48 overflow-hidden max-w-[500px]">{value}</p>
                           </div>
                         </li>
                       )}
