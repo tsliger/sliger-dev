@@ -8,6 +8,8 @@ import { v4 as uuidv4 } from "uuid";
 import { RiAddFill } from "react-icons/ri/index"
 import { useStore } from "@nanostores/react";
 import { jwtToken } from "../../stores/jwtStore";
+import { RiLoader5Line } from "react-icons/ri"
+
 
 
 const contentTypes = ["header", "text", "image", "code block"];
@@ -47,18 +49,14 @@ const AddPostModal = ({ isOpen, setOpen, content, updateContent }) => {
       case "text":
         addText();
         break;
-
-      case "image":
-        addImage();
-        break;
     }
   };
 
-  const addImage = () => {
+  const addImage = (file) => {
     let data = {
       id: uuidv4(),
-      value: uploadedFile.name,
-      meta: { fileObject: uploadedFile },
+      value: file.name,
+      meta: { fileObject: file },
       type: 'image'
     }
 
@@ -86,6 +84,10 @@ const AddPostModal = ({ isOpen, setOpen, content, updateContent }) => {
     updateContent([...content, data]);
     setOpen(false);
   };
+
+  const updateFile = (e) => {
+    addImage(e.target.files[0])
+  }
 
   return (
     <Modal open={isOpen} className="z-[999]">
@@ -158,8 +160,8 @@ const AddPostModal = ({ isOpen, setOpen, content, updateContent }) => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                 >
-                  <label htmlFor="file" className='cursor-pointer text-[#FFE6C7]  p-3 text-xs font-mono border-2 border-black/20 font-bold rounded-xl shadow-lg active:shadow-none my-2 duration-150 transition grid-items-center'>Click To Add Image</label>
-                  <input id="file" type="file" name="file" className="hidden" onChange={(e) => { setFile(e.target.files[0])} }></input>
+                  <label htmlFor="filename" className='cursor-pointer text-[#FFE6C7]  p-3 text-xs font-mono border-2 border-black/20 font-bold rounded-xl shadow-lg active:shadow-none my-2 duration-150 transition grid-items-center'>Click To Add Image</label>
+                  <input id="filename" type="file" name="filename" className="hidden" onChange={updateFile}></input>
                 </motion.div>
               )}
             </div>
@@ -180,6 +182,7 @@ const AddPostModal = ({ isOpen, setOpen, content, updateContent }) => {
 const FixedSubmitButton = ({ startContentPost, postLoading }) => {
   return (
     <button disabled={postLoading} onClick={startContentPost} className="fixed z-[999] button-style h-12 text-lg px-8 bg-[#403d39] space-x-2 right-8 bottom-8 flex items-center">
+      {postLoading && <RiLoader5Line className="animate-spin"/>}
       <p>Add</p><RiAddFill />
     </button>
   )
@@ -207,99 +210,128 @@ export default function PostCreator() {
   }
 
   const postHeaderContent = async (data: any, i: Number) => {
-    try {
+    const res: any = await ky.post(`${url}/api/contents`, {
+    json: {
+      "data": {
+        "type": 'header',
+        "header": data.value,
+        "order": i,
+      }
+    }, 
+    headers: { Authorization: `Bearer ${$jwtToken}` },
+    timeout: 99999
+    }).json();
+
+    return await res.data.id
+  }
+
+  const postTextContent = async (data: any, i: Number) => {
+    const res: any = await ky.post(`${url}/api/contents`, {
+    json: {
+      "data": {
+        "type": 'text',
+        "content": data.value,
+        "order": i,
+      }
+    }, 
+    headers: { Authorization: `Bearer ${$jwtToken}` },
+    timeout: 99999
+    }).json();
+
+    return await res.data.id
+  }
+  
+  const postImageContent = async (data: any, i: Number) => {
+    const imageData = data.meta.fileObject;
+    const formData = new FormData()
+    formData.append('files', imageData)
+
+    var resp: any = await ky.post(`${url}/api/upload`, {body: formData, headers: { Authorization: `Bearer ${$jwtToken}` }}).json();
+    
+    if (resp && resp[0].id)
+    {
+      const photoId = resp[0].id;
       const res: any = await ky.post(`${url}/api/contents`, {
       json: {
         "data": {
-          "type": 'header',
-          "header": data.value,
+          "type": 'image',
+          "image": {
+            "id": photoId
+          },
           "order": i,
         }
       }, 
-        headers: { Authorization: `Bearer ${$jwtToken}` }
+      headers: { Authorization: `Bearer ${$jwtToken}` },
+      timeout: 99999
       }).json();
 
-      return res.data.id
-    } catch (error) {
-      if (error.name === 'HTTPError') {
-        const errorJson = await error.response.json();
-      }
+      return await res.data.id
     }
   }
 
   const postContentToServer = async (contentIds) => {
     const formData = new FormData()
-
     formData.append('files', backgroundFile)
-
-    try {
-      var resp: any = await ky.post(`${url}/api/upload`, {body: formData, headers: { Authorization: `Bearer ${$jwtToken}` }}).json();
-    } catch (error) {
-      if (error.name === 'HTTPError') {
-        const errorJson = await error.response.json();
-      }
-    }
+    var resp = await ky.post(`${url}/api/upload`, {body: formData, headers: { Authorization: `Bearer ${$jwtToken}` }}).json();
 
     if (resp){
       const photoId = resp[0].id;
-      try {
-        const res: any = await ky.post(`${url}/api/posts`, {
-          json: {
-            "data": {
-              "title": data.title,
-              "excerpt": data.excerpt,
-              "visible": true,
-              "categories": {
-                  "id": 1
-              },
-              "author" : {
-                  "id": 1
-              },
-              "contents": contentIds,
-              "featured_image": {
-                "id": photoId
-              }
+      const res: any = await ky.post(`${url}/api/posts`, {
+        json: {
+          "data": {
+            "title": data.title,
+            "excerpt": data.excerpt,
+            "visible": true,
+            "categories": {
+                "id": 1
+            },
+            "author" : {
+                "id": 1
+            },
+            "contents": contentIds,
+            "featured_image": {
+              "id": photoId
             }
-          }, 
-          headers: { Authorization: `Bearer ${$jwtToken}` }
-        }).json();
+          }
+        }, 
+        headers: { Authorization: `Bearer ${$jwtToken}` },
+      }).json();
 
-        setLoading(false)
-        const slug = res.data.attributes.slug
-        if (slug) {
-          window.location.href = "/blog/" + slug;
-        }
-      } catch (error) {
-        if (error.name === 'HTTPError') {
-          const errorJson = await error.response.json();
-        }
+      setLoading(false)
+
+      const slug = res.data.attributes.slug
+      if (slug) {
+        window.location.href = "/blog/" + slug;
       }
     }
   }
 
-  const startContentPost = () => {
+  const startContentPost = async () => {
     setLoading(true)
-    let contentIds = processContent()
+    let contentIds = await processContent()
 
-    contentIds.then((ids) => {
-      if (ids) {
-        setTimeout(() => {
-          postContentToServer(ids)
-        }, 500)
-      }
-    })
+    postContentToServer(contentIds)
   }
 
-  const processContent = async () => {
+  const processContent = () => {
     let contentIds: number[] = []
-    content.forEach((data, i) => {
-      switch(data.type) {
+    content.forEach(async (data, i) => {
+      switch (data.type) {
         case "header":
-          const res = postHeaderContent(data, i);
-          res.then((id) => {
-            contentIds.push(id)
-          })
+          const res = await postHeaderContent(data, i);
+          contentIds.push(res)
           break;
+        
+        case "text":
+          const textRes = await postTextContent(data, i);
+          contentIds.push(textRes)
+          break;
+        
+        case "image":
+          const imgRes = await postImageContent(data, i)
+          contentIds.push(imgRes)
+          break;
+        
       }
     })
 
