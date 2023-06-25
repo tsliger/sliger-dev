@@ -1,10 +1,14 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import ky from "ky";
 import { Modal } from "@mui/material";
 import { motion } from "framer-motion";
 import { AiOutlineClose } from "react-icons/ai/index";
 import { v4 as uuidv4 } from "uuid";
 import { RiAddFill } from "react-icons/ri/index"
+import { useStore } from "@nanostores/react";
+import { jwtToken } from "../../stores/jwtStore";
+
 
 const contentTypes = ["header", "text", "image", "code block"];
 interface Content {
@@ -173,9 +177,9 @@ const AddPostModal = ({ isOpen, setOpen, content, updateContent }) => {
   );
 };
 
-const FixedSubmitButton = () => {
+const FixedSubmitButton = ({ startContentPost, postLoading }) => {
   return (
-    <button className="fixed z-[999] button-style h-12 text-lg px-8 bg-[#403d39] space-x-2 right-8 bottom-8 flex items-center">
+    <button disabled={postLoading} onClick={startContentPost} className="fixed z-[999] button-style h-12 text-lg px-8 bg-[#403d39] space-x-2 right-8 bottom-8 flex items-center">
       <p>Add</p><RiAddFill />
     </button>
   )
@@ -183,6 +187,14 @@ const FixedSubmitButton = () => {
 
 export default function PostCreator() {
   const [content, updateContent] = useState(postContent);
+  const [data, setForm] = useState({
+    title: '',
+    excerpt: ''
+  })
+  const url = import.meta.env.PUBLIC_BACKEND_URL
+  const $jwtToken = useStore(jwtToken)
+  const [postLoading, setLoading] = useState(false)
+  const [backgroundFile, setBgFile] = useState(undefined)
 
   function handleOnDragEnd(result) {
     if (!result.destination) return;
@@ -194,16 +206,118 @@ export default function PostCreator() {
     updateContent(items);
   }
 
+  const postHeaderContent = async (data: any, i: Number) => {
+    try {
+      const res: any = await ky.post(`${url}/api/contents`, {
+      json: {
+        "data": {
+          "type": 'header',
+          "header": data.value,
+          "order": i,
+        }
+      }, 
+        headers: { Authorization: `Bearer ${$jwtToken}` }
+      }).json();
+
+      return res.data.id
+    } catch (error) {
+      if (error.name === 'HTTPError') {
+        const errorJson = await error.response.json();
+      }
+    }
+  }
+
+  const postContentToServer = async (contentIds) => {
+    const formData = new FormData()
+
+    formData.append('files', backgroundFile)
+
+    try {
+      var resp: any = await ky.post(`${url}/api/upload`, {body: formData, headers: { Authorization: `Bearer ${$jwtToken}` }}).json();
+    } catch (error) {
+      if (error.name === 'HTTPError') {
+        const errorJson = await error.response.json();
+      }
+    }
+
+    if (resp){
+      const photoId = resp[0].id;
+      try {
+        const res: any = await ky.post(`${url}/api/posts`, {
+          json: {
+            "data": {
+              "title": data.title,
+              "excerpt": data.excerpt,
+              "visible": true,
+              "categories": {
+                  "id": 1
+              },
+              "author" : {
+                  "id": 1
+              },
+              "contents": contentIds,
+              "featured_image": {
+                "id": photoId
+              }
+            }
+          }, 
+          headers: { Authorization: `Bearer ${$jwtToken}` }
+        }).json();
+
+        setLoading(false)
+        const slug = res.data.attributes.slug
+        if (slug) {
+          window.location.href = "/blog/" + slug;
+        }
+      } catch (error) {
+        if (error.name === 'HTTPError') {
+          const errorJson = await error.response.json();
+        }
+      }
+    }
+  }
+
+  const startContentPost = () => {
+    setLoading(true)
+    let contentIds = processContent()
+
+    contentIds.then((ids) => {
+      if (ids) {
+        setTimeout(() => {
+          postContentToServer(ids)
+        }, 500)
+      }
+    })
+  }
+
+  const processContent = async () => {
+    let contentIds: number[] = []
+    content.forEach((data, i) => {
+      switch(data.type) {
+        case "header":
+          const res = postHeaderContent(data, i);
+          res.then((id) => {
+            contentIds.push(id)
+          })
+          break;
+      }
+    })
+
+    return contentIds
+  }
+
   return (
     <>
-      <FixedSubmitButton />
+      <FixedSubmitButton {...{startContentPost, postLoading}}/>
       <div className="container-test pt-32 min-h-screen mb-32">
         <div className="mb-16 space-y-8 flex flex-col">
           <h1 className="text-4xl py-4 text-white/70 font-serif text-white font-semibold tracking-wider">
             Post Details
           </h1>
-          <input className="input-field w-96" placeholder='Title'/>
-          <textarea className="input-field w-96 min-h-[150px]" placeholder='Excerpt'/>
+          <input onInput={(event: any) => {setForm({...data, title: event.target.value})}} className="input-field w-96" placeholder='Title'/>
+          <textarea onInput={(event: any) => {setForm({...data, excerpt: event.target.value})}}  className="input-field w-96 min-h-[150px]" placeholder='Excerpt'/>
+          <label htmlFor="file" className='cursor-pointer text-[#FFE6C7] w-48 h-48  p-3 text-xs font-mono border-2 border-black/20 font-bold rounded-xl shadow-lg active:shadow-none my-2 duration-150 transition grid-items-center'>Click To Add Image</label>
+          <input id="file" type="file" name="file" className="hidden" onChange={(e) => { setBgFile(e.target.files[0])} }></input>
         </div>
         <div className="flex items-center justify-between">
           <h1 className="text-4xl py-4 text-white/70 font-serif text-white font-semibold tracking-wider">

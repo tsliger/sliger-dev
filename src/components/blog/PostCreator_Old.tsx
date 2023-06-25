@@ -45,6 +45,9 @@ export default function PostCreator() {
                         "author" : {
                             "id": 1
                         },
+                        "content": {
+                          
+                        },
                         "featured_image": {
                             "id": photoId
                         }
