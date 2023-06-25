@@ -13,9 +13,10 @@ export default function PostDeleteModal({
   postId,
 }) {
   const $jwtToken = useStore(jwtToken)
+  const url = import.meta.env.PUBLIC_BACKEND_URL
   const [postData, setPostData] = useState(undefined);
   const fetchPost = async (postId: number) => {
-    const data: any = await ky.get(`http://localhost:1337/api/posts/${postId}`).json();
+    const data: any = await ky.get(`${url}/api/posts/${postId}?populate=*`).json();
 
     if (data) {
       setPostData(data.data);
@@ -31,15 +32,21 @@ export default function PostDeleteModal({
   }, [postId]);
 
   const deletePost = async () => {
+    const contents = postData.attributes.contents.data
+    
+    if (contents) {
+      contents.forEach((obj) => {
+        const id = obj.id
+        ky.delete(`${url}/api/contents/${id}`, { headers: { Authorization: `Bearer ${$jwtToken}` } })
+      })
+    }
     // Delete post via api
-    const data = await ky.delete(`http://localhost:1337/api/posts/${postId}`, { headers: { Authorization: `Bearer ${$jwtToken}` } })
+    const data = await ky.delete(`${url}/api/posts/${postId}`, { headers: { Authorization: `Bearer ${$jwtToken}` } })
 
     if (data) {
       setDeleteModal(false)
     }
   }
-
-  console.log(postId)
 
   return (
     <Modal open={isDeleteModalOpen} className="grid place-items-center">
