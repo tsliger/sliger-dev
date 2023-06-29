@@ -88,3 +88,7 @@ code {
 .button-style {
   @apply text-[#FFE6C7] p-3 text-xs font-mono border-2 border-black/20 font-bold rounded-xl shadow-lg active:shadow-none active:scale-95 duration-150 transition grid place-items-center;
 }
+
+.markdown > * {
+  all: revert;
+}

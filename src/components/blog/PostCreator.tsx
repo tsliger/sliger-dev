@@ -5,12 +5,10 @@ import { Modal } from "@mui/material";
 import { motion } from "framer-motion";
 import { AiOutlineClose } from "react-icons/ai/index";
 import { v4 as uuidv4 } from "uuid";
-import { RiAddFill } from "react-icons/ri/index"
+import { RiAddFill, RiLoader5Line, RiDeleteRow } from "react-icons/ri/index"
 import { useStore } from "@nanostores/react";
 import { jwtToken } from "../../stores/jwtStore";
-import { RiLoader5Line } from "react-icons/ri"
-
-
+import MDEditor from '@uiw/react-md-editor';
 
 const contentTypes = ["header", "text", "image", "code block"];
 interface Content {
@@ -35,10 +33,11 @@ const AddPostButton = ({ content, updateContent }) => {
 };
 
 const AddPostModal = ({ isOpen, setOpen, content, updateContent }) => {
-  const [selected, setSelected] = useState(undefined);
+  const [selected, setSelected] = useState('header');
   const [uploadedFile, setFile] = useState(undefined);
   const headerRef = useRef(undefined);
   const textRef = useRef(undefined);
+  const [value, setValue] = useState("**Hello world!!!**");
 
   const addObject = () => {
     switch (selected) {
@@ -67,7 +66,7 @@ const AddPostModal = ({ isOpen, setOpen, content, updateContent }) => {
   const addText = () => {
     let data = {
       id: uuidv4(),
-      value: textRef.current.value,
+      value: value,
       type: 'text'
     }
 
@@ -147,11 +146,7 @@ const AddPostModal = ({ isOpen, setOpen, content, updateContent }) => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                 >
-                  <textarea
-                    ref={textRef}
-                    placeholder="Type content here..."
-                    className="input-field w-full min-h-[300px]"
-                  />
+                  <MDEditor value={value} onChange={setValue} />
                 </motion.div>
               )}
               {selected === "image" && (
@@ -184,6 +179,14 @@ const FixedSubmitButton = ({ startContentPost, postLoading }) => {
     <button disabled={postLoading} onClick={startContentPost} className="fixed z-[999] button-style h-12 text-lg px-8 bg-[#403d39] space-x-2 right-8 bottom-8 flex items-center">
       {postLoading && <RiLoader5Line className="animate-spin"/>}
       <p>Add</p><RiAddFill />
+    </button>
+  )
+}
+
+const DeleteItemButton = ({ onClick }) => {
+  return (
+    <button onClick={onClick} className="absolute right-0 hover:text-red-500 transition-all duration-200 ease-in">
+      <RiDeleteRow size={18}/>
     </button>
   )
 }
@@ -306,14 +309,28 @@ export default function PostCreator() {
     }
   }
 
+  function waitFor(conditionFunction) {
+
+    const poll = resolve => {
+      if(conditionFunction()) resolve();
+      else setTimeout(_ => poll(resolve), 400);
+    }
+  
+    return new Promise(poll);
+  }
+
   const startContentPost = async () => {
     setLoading(true)
     let contentIds = await processContent()
 
-    postContentToServer(contentIds)
+    await waitFor(_ => contentIds.length === content.length);
+
+    setTimeout(() => {
+      postContentToServer(contentIds)
+    }, 100)
   }
 
-  const processContent = () => {
+  const processContent = async () => {
     let contentIds: number[] = []
     content.forEach(async (data, i) => {
       switch (data.type) {
@@ -331,24 +348,35 @@ export default function PostCreator() {
           const imgRes = await postImageContent(data, i)
           contentIds.push(imgRes)
           break;
-        
       }
     })
 
-    return contentIds
+    return await contentIds
+  }
+
+  const deleteRow = (oldId) => {
+    const filtered = content.filter(item => item.id !== oldId);
+    updateContent(filtered)
   }
 
   return (
     <>
       <FixedSubmitButton {...{startContentPost, postLoading}}/>
       <div className="container-test pt-32 min-h-screen mb-32">
-        <div className="mb-16 space-y-8 flex flex-col">
-          <h1 className="text-4xl py-4 text-white/70 font-serif text-white font-semibold tracking-wider">
+        <div className="mb-16 space-y-8 flex">
+          <h1 className="text-4xl py-4 w-72 text-white/70 font-serif text-white font-semibold tracking-wider">
             Post Details
           </h1>
-          <input onInput={(event: any) => {setForm({...data, title: event.target.value})}} className="input-field w-96" placeholder='Title'/>
-          <textarea onInput={(event: any) => {setForm({...data, excerpt: event.target.value})}}  className="input-field w-96 min-h-[150px]" placeholder='Excerpt'/>
-          <label htmlFor="file" className='cursor-pointer text-[#FFE6C7] w-48 h-48  p-3 text-xs font-mono border-2 border-black/20 font-bold rounded-xl shadow-lg active:shadow-none my-2 duration-150 transition grid-items-center'>Click To Add Image</label>
+          <div className="space-y-8 left-24 relative">
+            <input onInput={(event: any) => {setForm({...data, title: event.target.value})}} className="input-field w-96" placeholder='Title'/>
+            <textarea onInput={(event: any) => {setForm({...data, excerpt: event.target.value})}}  className="input-field w-96 min-h-[150px]" placeholder='Excerpt'/>
+          </div>
+          <label htmlFor="file" className='overflow-hidden cursor-pointer relative text-[#FFE6C7] w-72 h-48  p-3 text-xs font-mono border-2 border-black/20 font-bold rounded-xl shadow-lg active:shadow-none my-2 duration-150 transition grid-items-center'>
+            Click To Add Image
+            <div className="overflow-hidden bg-black/10 bg-filter z-[-1] absolute w-full h-full left-0 top-0 grid place-items-center">
+              <img src={backgroundFile ? URL.createObjectURL(backgroundFile) : undefined} className="opacity-10 object-cover h-full w-full"/> 
+            </div>
+          </label>
           <input id="file" type="file" name="file" className="hidden" onChange={(e) => { setBgFile(e.target.files[0])} }></input>
         </div>
         <div className="flex items-center justify-between">
@@ -375,10 +403,11 @@ export default function PostCreator() {
                           {...provided.dragHandleProps}
                           className="py-4 px-2"
                         >
-                          <div className="characters-thumb flex items-center drop-shadow-xl">
+                          <div className="characters-thumb flex relative items-center drop-shadow-xl">
                             <p>{index + 1}</p>
                             <p className="capitalize ml-12">{type}</p>
                             <p className="relative left-48 overflow-hidden max-w-[500px]">{value}</p>
+                            <DeleteItemButton onClick={() => deleteRow(id)}/>
                           </div>
                         </li>
                       )}

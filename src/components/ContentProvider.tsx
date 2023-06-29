@@ -7,7 +7,7 @@ import { RiLoader5Line } from "react-icons/ri"
 
 const TextContent = ({ text }) => {
   return (
-    <ReactMarkdown className="space-y-10 leading-8 text-justify font-sans indent-8 py-4 lg:py-8">{text}</ReactMarkdown>
+    <ReactMarkdown className="markdown">{text}</ReactMarkdown>
   )
 }
 
