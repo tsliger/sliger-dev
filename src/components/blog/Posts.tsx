@@ -81,7 +81,7 @@ export default function Posts() {
         <button className="text-xs hover:text-[#FF6000] bg-[#FF6000] hover:bg-black/20 transition-all duration-200 ease-in-out shadow-md px-6 py-2 rounded-full font-semibold text-white tracking-wider">Most Recent</button>
         <button className="text-xs hover:text-[#FF6000] bg-[#FF6000] hover:bg-black/20 transition-all duration-200 ease-in-out shadow-md px-6 py-2 rounded-full font-semibold text-white tracking-wider">Technology</button>
       </div>
-      <Grid container className="" xs={12}>
+      <Grid container  className="gap-8" xs={12}>
         {data && data.data && 
           data.data.map((item: any) => {
             const post: Post = item.attributes;
