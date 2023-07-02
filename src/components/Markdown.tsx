@@ -18,10 +18,6 @@ SyntaxHighlighter.registerLanguage('markdown', markdown);
 SyntaxHighlighter.registerLanguage('json', json);
 
 const Markdown = ({ markdown }) => {
-  type MarkdownProps = {
-    markdown: string & { content?: string };
-  };
-
   const syntaxTheme = materialDark;
 
   const MarkdownComponents: object = {
