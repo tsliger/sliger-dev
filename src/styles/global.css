@@ -25,15 +25,6 @@ code {
   @apply bg-transparent text-sm lg:text-base py-3 !outline-none placeholder:text-white/20 border-2 px-4 rounded-lg shadow-lg focus:border-[#FF6000] focus:shadow-none border-white/20  text-white font-mono;
 }
 
-code {
-  transform: translateZ(0);
-  min-width: 100%;
-  float: left;
-  & > span {
-    display: block;
-  }
-}
-
 
 .bg-filter::before {
   position: absolute;
