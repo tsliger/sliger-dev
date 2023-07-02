@@ -1,7 +1,5 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import Markdown from "../../components/blog/Markdown";
-import ReadingTime from "../../components/blog/ReadingTime";
 import PublishedDate from "../../components/blog/PublishedDate";
 import ScrollBar from "../../components/ScrollBar";
 import ContentProvider from "../../components/ContentProvider"
@@ -55,7 +53,6 @@ var contents = content_data.sort(function(a, b) {
             <h2 class="font-thin lg:text-lg font-mono cursor-pointer">
               {post.attributes.author.data.attributes.name}
             </h2>
-            <!-- <ReadingTime content={post} /> -->
           </div>
         </div>
       </div>
