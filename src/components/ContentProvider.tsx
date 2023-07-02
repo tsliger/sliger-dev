@@ -3,11 +3,14 @@ import ReactMarkdown from 'react-markdown'
 import { useInView } from 'react-intersection-observer';
 import { BlurhashCanvas } from "react-blurhash";
 import { RiLoader5Line } from "react-icons/ri"
+import Markdown from "./Markdown";
 
 
 const TextContent = ({ text }) => {
   return (
-    <ReactMarkdown className="markdown">{text}</ReactMarkdown>
+    <div>
+      <Markdown markdown={text}/>
+    </div>
   )
 }
 
