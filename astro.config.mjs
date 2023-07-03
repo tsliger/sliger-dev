@@ -19,11 +19,6 @@ export default defineConfig({
   output: "server",
   adapter: netlify(),
   vite: {
-    build: {
-      commonjsOptions: {
-        include: [/react-syntax-highlighter/, /node_modules/],
-        include: [/lib-cjs/, /node_modules/],
-      }
-    }
+    ssr: { noExternal: [ 'react-syntax-highlighter' ],  },
   }
 });
