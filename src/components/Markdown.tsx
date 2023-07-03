@@ -1,13 +1,13 @@
 // Markdown.tsx
 import ReactMarkdown from 'react-markdown';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
-import tsx from 'react-syntax-highlighter/dist/cjs/languages/prism/tsx';
-import typescript from 'react-syntax-highlighter/dist/cjs/languages/prism/typescript';
-import scss from 'react-syntax-highlighter/dist/cjs/languages/prism/scss';
-import bash from 'react-syntax-highlighter/dist/cjs/languages/prism/bash';
-import markdown from 'react-syntax-highlighter/dist/cjs/languages/prism/markdown';
-import json from 'react-syntax-highlighter/dist/cjs/languages/prism/json';
-import { materialDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx';
+import typescript from 'react-syntax-highlighter/dist/esm/languages/prism/typescript';
+import scss from 'react-syntax-highlighter/dist/esm/languages/prism/scss';
+import bash from 'react-syntax-highlighter/dist/esm/languages/prism/bash';
+import markdown from 'react-syntax-highlighter/dist/esm/languages/prism/markdown';
+import json from 'react-syntax-highlighter/dist/esm/languages/prism/json';
+import { materialDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 SyntaxHighlighter.registerLanguage('tsx', tsx);
 SyntaxHighlighter.registerLanguage('typescript', typescript);
