@@ -8,7 +8,6 @@ import bash from 'react-syntax-highlighter/dist/cjs/languages/prism/bash';
 import markdown from 'react-syntax-highlighter/dist/cjs/languages/prism/markdown';
 import json from 'react-syntax-highlighter/dist/cjs/languages/prism/json';
 import { materialDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
-import rangeParser from 'parse-numeric-range';
 
 SyntaxHighlighter.registerLanguage('tsx', tsx);
 SyntaxHighlighter.registerLanguage('typescript', typescript);
@@ -20,52 +19,27 @@ SyntaxHighlighter.registerLanguage('json', json);
 const Markdown = ({ markdown }) => {
   const syntaxTheme = materialDark;
 
-  const MarkdownComponents: object = {
-    code({ node, inline, className, ...props }) {
-      const hasLang = /language-(\w+)/.exec(className || '');
-      const hasMeta = node?.data?.meta;
-
-      const applyHighlights: object = (applyHighlights: number) => {
-        if (hasMeta) {
-          const RE = /{([\d,-]+)}/;
-          const metadata = node.data.meta?.replace(/\s/g, '');
-          const strlineNumbers = RE?.test(metadata)
-            ? RE?.exec(metadata)[1]
-            : '0';
-          const highlightLines = rangeParser(strlineNumbers);
-          const highlight = highlightLines;
-          const data: string = highlight.includes(applyHighlights)
-            ? 'highlight'
-            : null;
-          return { data };
-        } else {
-          return {};
-        }
-      };
-
-      return hasLang ? (
-        <SyntaxHighlighter
-          style={syntaxTheme}
-          language={hasLang[1]}
-          PreTag="div"
-          className="codeStyle rounded-md shadow-sm"
-          showLineNumbers={true}
-          wrapLines={hasMeta}
-          useInlineStyles={true}
-          lineProps={applyHighlights}
-        >
-          {props.children}
-        </SyntaxHighlighter>
-      ) : (
-        <code className={className} {...props} />
-      )
-    },
-  }
-
   return (
     <ReactMarkdown
-      components={MarkdownComponents}
-      className="markdown break-all"
+      components={{
+        code({ node, inline, className, children, ...props }) {
+          const match = /language-(\w+)/.exec(className || "");
+          return !inline && match ? (
+            <SyntaxHighlighter
+              children={String(children).replace(/\n$/, "")}
+              language={match[1]}
+              {...props}
+              style={syntaxTheme}
+              className="codeStyle rounded-md shadow-sm indent-0"
+            />
+          ) : (
+            <code className={className} {...props}>
+              {children}
+            </code>
+          );
+        },
+      }}
+      className="markdown break-all text-sm lg:text-base indent-8 space-y-8"
     >
       {markdown}
     </ReactMarkdown>
