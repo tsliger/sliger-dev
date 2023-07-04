@@ -76,7 +76,7 @@ export default function Posts() {
 
   return (
 
-    <div>
+    <div className="mx-auto w-96 lg:w-auto flex flex-col justify-center">
       <div className="space-x-4">
         <button className="text-xs hover:text-[#FF6000] bg-[#FF6000] hover:bg-black/20 transition-all duration-200 ease-in-out shadow-md px-6 py-2 rounded-full font-semibold text-white tracking-wider">Most Recent</button>
         <button className="text-xs hover:text-[#FF6000] bg-[#FF6000] hover:bg-black/20 transition-all duration-200 ease-in-out shadow-md px-6 py-2 rounded-full font-semibold text-white tracking-wider">Technology</button>
@@ -91,7 +91,17 @@ export default function Posts() {
             const id: number = item.id;
 
             return (
-              <Grid key={post.slug} sm={12} md={8} lg={6} xl={4}>
+              // <Grid key={post.slug} sm={12} md={8} lg={6} xl={4}>
+              //   <PostCard
+              //     key={post.slug}
+              //     post={post}
+              //     authors={authors}
+              //     categories={categories}
+              //     image={image}
+              //     postId={id}
+              //   />
+              // </Grid>
+              <Grid key={post.slug} className="grid place-items-center">
                 <PostCard
                   key={post.slug}
                   post={post}

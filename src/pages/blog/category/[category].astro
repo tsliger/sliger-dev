@@ -16,7 +16,7 @@ const attributes = data.data.attributes;
 ---
 
 <Layout title={`${attributes.name} Posts | sliger.dev`}>
-  <div class="w-[700px] mx-auto min-h-screen">
+  <div class="w-full lg:w-[1000px] mx-auto min-h-screen">
     <h1 class="mt-24 w-full grid place-items-center text-3xl font-semibold tracking-wider py-16 font-sans text-white">{attributes.name} Posts</h1>
     <CategoryPosts posts={attributes.posts.data} client:only />
   </div>
