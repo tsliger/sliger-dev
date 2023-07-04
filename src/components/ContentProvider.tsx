@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from 'react'
-import ReactMarkdown from 'react-markdown'
 import { useInView } from 'react-intersection-observer';
 import { BlurhashCanvas } from "react-blurhash";
 import { RiLoader5Line } from "react-icons/ri"

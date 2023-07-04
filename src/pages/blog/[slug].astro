@@ -59,8 +59,8 @@ var contents = content_data.sort(function(a, b) {
     </div>
     <main class="text-white  z-50 w-full lg:w-[800px] xl:w-[1000px] px-6 mx-auto pt-8">
       <PublishedDate date={post.attributes.publishedAt} text={"Published"} />
-      <div class="mb-48 mt-8 leading-10 font-serif min-h-[800px]">
-        <ContentProvider {...{contents}} client:only/>
+      <div class="mb-48 mt-8 leading-10 font-serif">
+        <ContentProvider {...{contents}} client:load/>
       </div>
     </main>
   </article>
