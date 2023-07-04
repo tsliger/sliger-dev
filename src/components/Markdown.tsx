@@ -1,37 +1,32 @@
 // Markdown.tsx
 import ReactMarkdown from 'react-markdown';
-import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
-import tsx from 'react-syntax-highlighter/dist/cjs/languages/prism/tsx';
-import typescript from 'react-syntax-highlighter/dist/cjs/languages/prism/typescript';
-import scss from 'react-syntax-highlighter/dist/cjs/languages/prism/scss';
-import bash from 'react-syntax-highlighter/dist/cjs/languages/prism/bash';
-import markdown from 'react-syntax-highlighter/dist/cjs/languages/prism/markdown';
-import json from 'react-syntax-highlighter/dist/cjs/languages/prism/json';
-import { materialDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
-
-SyntaxHighlighter.registerLanguage('tsx', tsx);
-SyntaxHighlighter.registerLanguage('typescript', typescript);
-SyntaxHighlighter.registerLanguage('scss', scss);
-SyntaxHighlighter.registerLanguage('bash', bash);
-SyntaxHighlighter.registerLanguage('markdown', markdown);
-SyntaxHighlighter.registerLanguage('json', json);
+import { Highlight, themes } from "prism-react-renderer"
 
 const Markdown = ({ markdown }) => {
-  const syntaxTheme = materialDark;
-
   return (
     <ReactMarkdown
       components={{
         code({ node, inline, className, children, ...props }) {
           const match = /language-(\w+)/.exec(className || "");
           return !inline && match ? (
-            <SyntaxHighlighter
-              children={String(children).replace(/\n$/, "")}
+            <Highlight
+              theme={themes.okaidia}
+              code={String(children).replace(/\n$/, "")}
               language={match[1]}
-              {...props}
-              style={syntaxTheme}
-              className="codeStyle rounded-md shadow-sm indent-0"
-            />
+            >
+              {({ className, style, tokens, getLineProps, getTokenProps }) => (
+                <pre style={style} className="py-4 rounded-xl shadow-sm">
+                  {tokens.map((line, i) => (
+                    <div key={i} {...getLineProps({ line })}>
+                      <span  className="pr-6 select-none">{i + 1}</span>
+                      {line.map((token, key) => (
+                        <span key={key} {...getTokenProps({ token })} />
+                      ))}
+                    </div>
+                  ))}
+                </pre>
+              )}
+            </Highlight>
           ) : (
             <code className={className} {...props}>
               {children}
