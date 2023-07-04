@@ -29,6 +29,7 @@ var contents = content_data.sort(function(a, b) {
       <div class="bg-filter absolute w-full h-full flex items-center">
         <img
           draggable={false}
+          alt={''}
           class="select-none w-full opacity-30 z-[-1]"
           src={
             imgUrl
@@ -44,11 +45,11 @@ var contents = content_data.sort(function(a, b) {
           <h1 class="font-bold text-3xl lg:text-5xl pb-1 lg:pb-4">
             {post.attributes.title}
           </h1>
-          <h3
+          <h2
             class="mb-1 underline  underline-offset-3 text-[#FF6000] font-thin text-sm lg:text-lg font-mono select-none cursor-pointer"
           >
             <a href={"/blog/category/" + post.attributes.categories.data[0].attributes.slug}>{post.attributes.categories.data[0].attributes.name}</a>
-          </h3>
+          </h2>
           <div class="flex items-center justify-between">
             <h2 class="font-thin lg:text-lg font-mono cursor-pointer">
               {post.attributes.author.data.attributes.name}
@@ -59,7 +60,7 @@ var contents = content_data.sort(function(a, b) {
     </div>
     <main class="text-white  z-50 w-full lg:w-[800px] xl:w-[1000px] px-6 mx-auto pt-8">
       <PublishedDate date={post.attributes.publishedAt} text={"Published"} />
-      <div class="mb-48 mt-8 leading-10 font-serif">
+      <div class="mb-48 mt-8">
         <ContentProvider {...{contents}} client:load/>
       </div>
     </main>

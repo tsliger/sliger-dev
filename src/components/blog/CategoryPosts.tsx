@@ -5,7 +5,7 @@ import { Post } from "./Posts";
 
 export default function CategoryPosts({ posts }) {
   return (
-    <div className="flex  justify-center">
+    <div className="grid grid-cols-1 lg:grid-cols-2 place-items-center mb-24">
       {posts &&
             posts.map((item: any) => {
               const post: Post = item.attributes;
