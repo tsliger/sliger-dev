@@ -6,6 +6,10 @@ const Markdown = ({ markdown }) => {
   return (
     <ReactMarkdown
       components={{
+        a: ({ href, children }) => {
+            return <a className="underline text-[#ff6000]" target="_blank"  href={href}>{children}</a>
+        },
+        
         code({ node, inline, className, children, ...props }) {
           const match = /language-(\w+)/.exec(className || "");
           return !inline && match ? (
@@ -15,10 +19,10 @@ const Markdown = ({ markdown }) => {
               language={match[1]}
             >
               {({ className, style, tokens, getLineProps, getTokenProps }) => (
-                <pre style={style} className="py-4 my-12 rounded-xl shadow-sm">
+                <pre style={style} className="px-4 pl-6 mt-6 mb-24 py-6 rounded-xl shadow-sm overflow-x-scroll">
                   {tokens.map((line, i) => (
                     <div key={i} {...getLineProps({ line })}>
-                      <span  className="pr-6 select-none">{i + 1}</span>
+                      {/* <span  className="pr-6 select-none">{i + 1}</span> */}
                       {line.map((token, key) => (
                         <span key={key} {...getTokenProps({ token })} />
                       ))}
@@ -34,7 +38,7 @@ const Markdown = ({ markdown }) => {
           );
         },
       }}
-      className="markdown break-all text-sm lg:text-base indent-8 space-y-8"
+      className="markdown text-md lg:text-base space-y-8"
     >
       {markdown}
     </ReactMarkdown>
