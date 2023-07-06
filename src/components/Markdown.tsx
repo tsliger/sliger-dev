@@ -19,7 +19,7 @@ const Markdown = ({ markdown }) => {
               language={match[1]}
             >
               {({ className, style, tokens, getLineProps, getTokenProps }) => (
-                <pre style={style} className="px-4 pl-6 mt-6 mb-24 py-6 rounded-xl shadow-sm overflow-x-scroll">
+                <pre style={style} className="px-6 my-16 py-6 rounded-xl shadow-sm overflow-x-scroll">
                   {tokens.map((line, i) => (
                     <div key={i} {...getLineProps({ line })}>
                       {/* <span  className="pr-6 select-none">{i + 1}</span> */}

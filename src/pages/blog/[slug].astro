@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import PublishedDate from "../../components/blog/PublishedDate";
 import ScrollBar from "../../components/ScrollBar";
 import ContentProvider from "../../components/ContentProvider"
+import ReadingTime from "../../components/blog/ReadingTime";
 
 const { slug } = Astro.params;
 const url = import.meta.env.PUBLIC_BACKEND_URL
@@ -19,6 +20,13 @@ const content_data = post.attributes.contents.data
 var contents = content_data.sort(function(a, b) {
   return a.attributes.order - b.attributes.order ;
 });
+
+let contentData = ""
+
+contents.forEach((content) => {
+  contentData += content.attributes.content !== null ? content.attributes.content : ""
+  contentData += content.attributes.header !== null ? content.attributes.header : ""
+})
 ---
 
 <Layout title={`${post.attributes.title} | sliger.dev`} description={post.attributes.excerpt} imageURL={imgUrl} type="article">
@@ -40,9 +48,9 @@ var contents = content_data.sort(function(a, b) {
 
       <div class="absolute bottom-10 w-full">
         <div
-          class="text-white mx-8 z-50 lg:mx-auto  w-full lg:w-[800px] xl:w-[1000px]  drop-shadow-md"
+          class="text-white z-50 lg:mx-auto w-full lg:w-[800px] px-6  xl:w-[1000px] drop-shadow-md"
         >
-          <h1 class="font-bold text-3xl lg:text-5xl pb-1 lg:pb-4">
+          <h1 class="font-bold text-2xl lg:text-5xl pb-1 lg:pb-4">
             {post.attributes.title}
           </h1>
           <h2
@@ -54,13 +62,14 @@ var contents = content_data.sort(function(a, b) {
             <h2 class="font-thin lg:text-lg font-mono cursor-pointer">
               {post.attributes.author.data.attributes.name}
             </h2>
+            <ReadingTime content={contentData}/>
           </div>
         </div>
       </div>
     </div>
     <main class="text-white  z-50 w-full lg:w-[800px] xl:w-[1000px] px-6 mx-auto pt-8">
       <PublishedDate date={post.attributes.publishedAt} text={"Published"} />
-      <div class="mb-48 mt-8">
+      <div class="mb-48 mt-8 ">
         <ContentProvider {...{contents}} client:load/>
       </div>
     </main>
