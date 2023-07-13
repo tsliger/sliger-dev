@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import ky from "ky";
 import PostCard from "./PostCard";
 import Loading from "../utils/Loading";
 import NetworkIssue from "./NetworkIssue";
