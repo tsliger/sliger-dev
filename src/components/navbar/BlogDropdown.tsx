@@ -6,15 +6,15 @@ import { LoadingCircle } from "../utils/Loading";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
-
 export default function BlogDropdown({ setBlogOpen, blogOpen }) {
   const [posts, setPosts] = useState(undefined);
   const dropRef = useRef(undefined)
   const url = import.meta.env.PUBLIC_BACKEND_URL;
   const { data, error, isLoading } = useSWR(
     `${url}/api/posts?pagination[page]=1&pagination[pageSize]=2&populate=*`,
-    fetcher
+    fetcher, { keepPreviousData: true, errorRetryInterval: 1000 }
   );
+
 
   useEffect(() => {
     async function click(event) {
@@ -73,7 +73,6 @@ export default function BlogDropdown({ setBlogOpen, blogOpen }) {
             <div className="border-b-[1.5px] border-black/20 flex-grow">
               {data && data.data && 
                 data.data.map((post: any, i) => {
-                  console.log(post)
                   return (
                     <BlogDropdownArticle key={i} post={post} i={i} postsLoading={isLoading}/>
                   )

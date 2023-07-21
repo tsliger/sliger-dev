@@ -8,7 +8,7 @@ export default function SkillTreeProvider() {
   const url = import.meta.env.PUBLIC_BACKEND_URL
   const { data, error, isLoading } = useSWR(
     `${url}/api/Skill-categories?populate=*`,
-    fetcher
+    fetcher, { keepPreviousData: true, errorRetryInterval: 1000 }
   );
 
   if (isLoading) {
