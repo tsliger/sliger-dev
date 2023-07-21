@@ -38,7 +38,7 @@ export default function Posts() {
   const url = import.meta.env.PUBLIC_BACKEND_URL
   const { data, error, isLoading } = useSWR(
     `${url}/api/posts?populate=*&pagination[page]=${currentPage}`,
-    fetcher
+    fetcher, { keepPreviousData: true, errorRetryInterval: 1000 }
   );
 
   function handlePageClick(e: any, val: any) {

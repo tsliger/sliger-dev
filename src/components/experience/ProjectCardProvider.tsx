@@ -9,7 +9,7 @@ export default function ProjectCardProvider() {
   const url = import.meta.env.PUBLIC_BACKEND_URL;
   const { data, error, isLoading } = useSWR(
     `${url}/api/projects?populate=*`,
-    fetcher
+    fetcher, { keepPreviousData: true, errorRetryInterval: 1000 }
   );
 
   if (isLoading) {
